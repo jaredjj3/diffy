@@ -399,7 +399,15 @@ article a:hover {
   -o-transition: all .1s ease-in;
   -webkit-transition: all .1s ease-in;
   transition: all .1s ease-in;
-  color: rgb(0, 153, 204);
+  color: rgb(0, 191, 255);
+}
+
+.not-editing {
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+  color: rgb(100, 100, 100);
 }
 
 .editor-controls {
