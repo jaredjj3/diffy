@@ -283,3 +283,68 @@ article a:hover {
   border-top: 1px solid rgb(232, 232, 232);
   border-bottom: 1px solid rgb(232, 232, 232);
 }
+
+/* EDITOR */
+
+.editor-container {
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.click-to-edit {
+  padding-left: 10%;
+  padding-right: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.editor-container h1 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.text-editor {
+  color: black;
+  font-size: 16px;
+  width: 900px;
+  height: 200px;
+  margin-top: 20px;
+  resize: none;
+}
+
+.editing { 
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+    color: rgb(0, 153, 204);
+}
+
+.editor-controls {
+  display: flex;
+}
+
+/* BUTTONS */
+
+.btn {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 75px;
+  color: rgb(0, 153, 204);
+  border-radius: 4px;
+  border: 2px solid rgb(0, 153, 204); 
+  font-size: 18px;
+  padding: 2px 10px;
+  margin-top: 20px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background: rgb(238, 238, 238);
+  color: rgb(113, 113, 113);
+}
+

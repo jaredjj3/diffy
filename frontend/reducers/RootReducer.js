@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import NullReducer from './NullReducer';
+import ArticleReducer from './ArticleReducer';
 
 export default combineReducers({
-  null: NullReducer
+  article: ArticleReducer
 });

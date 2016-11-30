@@ -31,7 +31,7 @@ export default () => {
             <a href={`http://github.com/jaredjj3/${constants.appName}`}>Source Code</a>
             <p>
               {constants.projectDescription} 
-              Edits can be dispatched using the <a href="#/editor">/editor</a> route. The resulting Diffy-view is on the <a href="#/show">/show</a> route. 
+              Edits can be dispatched using the built-in <a href="#/editor">editor</a>. The resulting Diffy-view is on the <a href="#/show">show page</a>. Diffy is currently a frontend-only app - state is not persisted between each request-response cycle. 
             </p>
             <p>{constants.appName} was brought to you by:</p>
             <ul className="devicons-list">

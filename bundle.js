@@ -22553,39 +22553,18 @@
 	
 	var _redux = __webpack_require__(179);
 	
-	var _NullReducer = __webpack_require__(201);
+	var _ArticleReducer = __webpack_require__(286);
 	
-	var _NullReducer2 = _interopRequireDefault(_NullReducer);
+	var _ArticleReducer2 = _interopRequireDefault(_ArticleReducer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = (0, _redux.combineReducers)({
-	  null: _NullReducer2.default
+	  article: _ArticleReducer2.default
 	});
 
 /***/ },
-/* 201 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-	  var action = arguments[1];
-	
-	  Object.freeze(state);
-	  var nextState = Object.assign({}, state);
-	  switch (action.type) {
-	    default:
-	      return nextState;
-	  }
-	};
-
-/***/ },
+/* 201 */,
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22601,14 +22580,26 @@
 
 /***/ },
 /* 203 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = {};
+	
+	var _sampleBody = __webpack_require__(287);
+	
+	var _sampleBody2 = _interopRequireDefault(_sampleBody);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	  article: {
+	    author: 'guest',
+	    body: _sampleBody2.default
+	  }
+	};
 
 /***/ },
 /* 204 */
@@ -29089,7 +29080,7 @@
 	                  _react2.default.createElement(
 	                    'i',
 	                    { className: 'material-icons' },
-	                    'pageview'
+	                    'done'
 	                  )
 	                )
 	              )
@@ -29129,7 +29120,7 @@
 	  slogan: "Viewing git diffs doesn't have to be difficult... Join the Diffy-cult!",
 	  projectTime: "~8 hours",
 	  intro: "I’m an engineer. I thoroughly enjoy taking things apart, learning how they work, and rebuilding them to be better. In the past, I’ve done this with chemical processes. Today, I make user experiences that inspire and change peoples lives. ",
-	  projectDescription: "Diffy is specifically designed for viewing git diffs for markdown documents. "
+	  projectDescription: "Diffy is specifically designed for viewing git diffs for plain text documents. "
 	};
 
 /***/ },
@@ -29238,19 +29229,19 @@
 	            'p',
 	            null,
 	            _constants2.default.projectDescription,
-	            'Edits can be dispatched using the ',
+	            'Edits can be dispatched using the built-in ',
 	            _react2.default.createElement(
 	              'a',
 	              { href: '#/editor' },
-	              '/editor'
+	              'editor'
 	            ),
-	            ' route. The resulting Diffy-view is on the ',
+	            '. The resulting Diffy-view is on the ',
 	            _react2.default.createElement(
 	              'a',
 	              { href: '#/show' },
-	              '/show'
+	              'show page'
 	            ),
-	            ' route.'
+	            '. Diffy is currently a frontend-only app - state is not persisted between each request-response cycle.'
 	          ),
 	          _react2.default.createElement(
 	            'p',
@@ -29312,7 +29303,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
-	  return {};
+	  return {
+	    body: state.article.body,
+	    author: state.article.author
+	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -29325,7 +29319,7 @@
 /* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -29348,20 +29342,91 @@
 	var _class = function (_React$Component) {
 	  _inherits(_class, _React$Component);
 	
-	  function _class() {
+	  function _class(props) {
 	    _classCallCheck(this, _class);
 	
-	    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
+	
+	    _this.state = {
+	      isEditing: false,
+	      body: props.body,
+	      author: props.author
+	    };
+	    return _this;
 	  }
 	
 	  _createClass(_class, [{
-	    key: "render",
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.textEditor = document.getElementById('text-editor');
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "editor-container" },
-	        "I AM EDITOR"
+	        'div',
+	        { className: 'editor-container' },
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'editor-controls' },
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'CONTROL 1'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'CONTROL 2'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'click-to-edit', onClick: this.onBodyClick.bind(this) },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Start ',
+	            _react2.default.createElement(
+	              'span',
+	              { className: this.state.isEditing ? 'editing' : '' },
+	              'editing'
+	            ),
+	            ', ',
+	            this.state.author,
+	            '. It\'s easy.'
+	          ),
+	          _react2.default.createElement('textarea', {
+	            id: 'text-editor',
+	            value: this.state.body,
+	            className: 'text-editor',
+	            onChange: this.onBodyChange.bind(this)
+	          })
+	        )
 	      );
+	    }
+	
+	    // Event handlers
+	
+	  }, {
+	    key: 'onBodyClick',
+	    value: function onBodyClick(e) {
+	      this.textEditor.focus();
+	      this.setState({
+	        isEditing: true
+	      });
+	    }
+	  }, {
+	    key: 'onBodyChange',
+	    value: function onBodyChange(e) {
+	      this.setState({
+	        body: e.target.value
+	      });
+	    }
+	  }, {
+	    key: 'onUpdateClick',
+	    value: function onUpdateClick(e) {
+	      e.stopPropagation();
 	    }
 	  }]);
 	
@@ -29447,6 +29512,40 @@
 	}(_react2.default.Component);
 	
 	exports.default = _class;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var _defaultState = Object.freeze({});
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
+	  var action = arguments[1];
+	
+	  Object.freeze(state);
+	  var nextState = Object.assign({}, state);
+	  switch (action.type) {
+	    default:
+	      return nextState;
+	  }
+	};
+
+/***/ },
+/* 287 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt ligula eget accumsan ultrices. Vestibulum et mi eget augue sodales auctor. Cras sit amet felis commodo, scelerisque leo eu, ornare neque. Donec consectetur tortor metus, pharetra fringilla nisl ultricies eu. Proin volutpat enim sit amet quam malesuada, a hendrerit ante ornare. Nunc lacinia massa eu sapien finibus, et vulputate libero ultricies. Praesent euismod elementum est, eu ornare nibh sollicitudin rutrum.\n\nPraesent molestie lectus non eleifend lobortis. Phasellus tristique libero at arcu faucibus condimentum. Suspendisse ornare nunc at tincidunt vehicula. Suspendisse fermentum ligula placerat est hendrerit, mollis lobortis quam mollis. Aliquam porttitor vitae neque sed mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor massa vel elit ullamcorper dapibus eget sed massa. Donec tempus congue arcu nec tristique. Aliquam erat volutpat. Etiam rutrum mauris vel orci posuere, id eleifend orci dapibus. Vivamus eu massa sed sem facilisis porta et eget ipsum.\n\nQuisque porttitor neque lacus, nec aliquet magna pellentesque non. Etiam eget dui at lacus mattis iaculis. Curabitur non elit non risus euismod pretium et quis urna. Suspendisse tempor interdum gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Nulla vulputate pharetra eros, ut aliquam magna semper vitae. Mauris nec sem facilisis, placerat eros non, rutrum mauris. Integer posuere arcu a ligula sodales pharetra. Sed fringilla quam vitae ligula vestibulum, ac gravida eros tempor. Nulla pellentesque tristique mauris eu molestie. Proin tempor finibus magna nec facilisis.";
 
 /***/ }
 /******/ ]);
