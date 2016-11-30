@@ -166,7 +166,8 @@ footer {
   text-align: center;
   color: whitesmoke;
   padding: 100px 0 50px 0;
-  background: salmon; 
+  background: salmon;
+  width: 100%;
 }
 
 /* HOME */
