@@ -28942,10 +28942,6 @@
 	
 	var _NavigationContainer2 = _interopRequireDefault(_NavigationContainer);
 	
-	var _Footer = __webpack_require__(279);
-	
-	var _Footer2 = _interopRequireDefault(_Footer);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = function (_ref) {
@@ -28958,8 +28954,7 @@
 	      'div',
 	      { className: 'children-container' },
 	      children
-	    ),
-	    _react2.default.createElement(_Footer2.default, null)
+	    )
 	  );
 	};
 
@@ -29060,7 +29055,11 @@
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: 'home' },
-	                  'home'
+	                  _react2.default.createElement(
+	                    'i',
+	                    { className: 'material-icons' },
+	                    'home'
+	                  )
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -29069,7 +29068,11 @@
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: 'editor' },
-	                  'editor'
+	                  _react2.default.createElement(
+	                    'i',
+	                    { className: 'material-icons' },
+	                    'edit'
+	                  )
 	                )
 	              )
 	            )
@@ -29105,33 +29108,14 @@
 	exports.default = {
 	  appName: "Diffy",
 	  companyName: "Authorea",
-	  slogan: "Viewing git diffs doesn't have to be difficult... Join the diffy-cult!",
+	  slogan: "Viewing git diffs doesn't have to be difficult... Join the Diffy-cult!",
 	  projectTime: "~8 hours",
 	  intro: "I’m an engineer. I thoroughly enjoy taking things apart, learning how they work, and rebuilding them to be better. In the past, I’ve done this with chemical processes. Today, I make user experiences that inspire and change peoples lives. ",
-	  projectDescription: "Diffy is specifically designed for viewing git diffs for markdown documents."
+	  projectDescription: "Diffy is specifically designed for viewing git diffs for markdown documents. "
 	};
 
 /***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  return _react2.default.createElement('footer', null);
-	};
-
-/***/ },
+/* 279 */,
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -29165,7 +29149,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'article-left' },
+	          { className: 'article-left home-picture' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'author-picture-container' },
@@ -29178,7 +29162,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'article-right' },
+	          { className: 'article-right home-about-author' },
 	          _react2.default.createElement(
 	            'h1',
 	            null,
@@ -29206,7 +29190,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'article-center' },
+	          { className: 'article-center home-about-project' },
 	          _react2.default.createElement(
 	            'h1',
 	            null,
@@ -29235,7 +29219,14 @@
 	          _react2.default.createElement(
 	            'p',
 	            null,
-	            _constants2.default.projectDescription
+	            _constants2.default.projectDescription,
+	            'You can view an example on the ',
+	            _react2.default.createElement(
+	              'a',
+	              { href: '#/editor' },
+	              '/editor'
+	            ),
+	            ' route.'
 	          ),
 	          _react2.default.createElement(
 	            'p',

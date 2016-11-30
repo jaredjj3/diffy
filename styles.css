@@ -56,6 +56,7 @@ cursor: pointer;
 body {
   font-family: 'Open Sans', sans-serif;
   line-height: 1.4;
+  color: rgb(100, 100, 100);
 }
 
 input, textarea {
@@ -90,8 +91,6 @@ nav {
   align-content: center;
   width: 100%;
   justify-content: space-between;
-  border-bottom: 1px solid whitesmoke;
-  background: orchid;
   z-index: 3;
   height: 60px;
 }
@@ -110,7 +109,7 @@ nav {
 .navigation-links {
   display: flex;
   align-content: center;
-  color: limegreen;
+  color: rgb(18, 169, 117);
   height: inherit;
 }
 
@@ -120,12 +119,11 @@ nav {
   justify-content: center;
   flex-direction: column;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-right: 15px;
+  margin-right: 20px;
 }
 
 .navigation-links > li:hover {
-  color: olive;
+  color: rgb(18, 200, 150);
   cursor: pointer;
 }
 
@@ -158,16 +156,6 @@ nav {
 .logo {
   height: inherit;
   width: auto;
-}
-
-/* FOOTER */
-
-footer {
-  text-align: center;
-  color: whitesmoke;
-  padding: 100px 0 50px 0;
-  background: salmon;
-  width: 100%;
 }
 
 /* HOME */
@@ -222,13 +210,15 @@ article {
 }
 
 article h1 {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
+  color: rgb(0, 153, 204);
 }
 
 article h2 {
-  font-size: 16px;
+  font-size: 14px;
   font-style: italic;
+  color: rgb(0, 153, 204);
 }
 
 article p {
@@ -239,11 +229,11 @@ article p {
 article a {
   font-size: 14px;
   padding-top: 20px;
-  color: limegreen;
+  color: rgb(18, 169, 117);
 }
 
 article a:hover {
-  color: olive;
+  color: rgb(18, 200, 150);
 }
 
 .article-left, .article-right,
@@ -254,24 +244,17 @@ article a:hover {
 .article-left {
   margin-right: 20px;
   background: white;
-  box-shadow: 0 0 3px #aaa; 
-  border-bottom: 1px solid #aaa;
 }
 
 .article-right {
   background: white;
   width: 100%;
-  box-shadow: 0 0 3px #aaa; 
-  border-bottom: 1px solid #aaa;
 }
 
 .article-center {
   background: white;
   width: 100%;
   padding-left: 30px;
-  box-shadow: 0 0 3px #aaa; 
-  border-bottom: 1px solid #aaa;
-
 }
 
 /* DEVICONS */
@@ -288,4 +271,15 @@ article a:hover {
 
 .devicons-list li {
   margin-right: 10px;
+}
+
+/* HOME */
+
+.home-picture {
+  border: 1px solid rgb(232, 232, 232);
+}
+
+.home-about-author, .home-about-project {
+  border-top: 1px solid rgb(232, 232, 232);
+  border-bottom: 1px solid rgb(232, 232, 232);
 }
