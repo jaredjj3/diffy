@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App  from './App';
 import Home from './Home';
 import EditorContainer from './editor/EditorContainer';
+import ShowContainer from './show/ShowContainer';
 
 export default ({ store }) => {
   const onEnter = (nextState, replace) => {
@@ -21,6 +22,7 @@ export default ({ store }) => {
         <Route path="/" component={App} onEnter={onEnter}>
           <Route path="home" component={Home} />
           <Route path="editor" component={EditorContainer} />
+          <Route path="show" component={ShowContainer} />
         </Route>
       </Router>
     </Provider>

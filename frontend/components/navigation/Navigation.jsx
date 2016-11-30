@@ -21,6 +21,7 @@ export default class extends React.Component {
             <ul onClick={this.onClick.bind(this)} className="navigation-links">
               <li className="home"><Link to="home"><i className="material-icons">home</i></Link></li>
               <li className="editor"><Link to="editor"><i className="material-icons">edit</i></Link></li>
+              <li className="show"><Link to="show"><i className="material-icons">pageview</i></Link></li>
             </ul>
           </div>
         </nav>

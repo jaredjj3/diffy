@@ -31,7 +31,7 @@ export default () => {
             <a href={`http://github.com/jaredjj3/${constants.appName}`}>Source Code</a>
             <p>
               {constants.projectDescription} 
-              You can view an example on the <a href="#/editor">/editor</a> route. 
+              Edits can be dispatched using the <a href="#/editor">/editor</a> route. The resulting Diffy-view is on the <a href="#/show">/show</a> route. 
             </p>
             <p>{constants.appName} was brought to you by:</p>
             <ul className="devicons-list">
