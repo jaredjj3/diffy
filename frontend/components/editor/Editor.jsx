@@ -19,8 +19,14 @@ export default class extends React.Component {
     return(
       <div className="editor-container">
         <ul className="editor-controls">
-          <li>CONTROL 1</li>
-          <li>CONTROL 2</li>
+          <li className="author-dropdown">
+            author<i className="material-icons">arrow_drop_down</i>
+            <ul className="author-dropdown-content">
+              <li>Jane Doe</li>
+              <li>John Smith</li>
+            </ul>
+          </li>
+          <li>update<i className="material-icons golden">assignment_turned_in</i></li>
         </ul>
         <div className="click-to-edit" onClick={this.onBodyClick.bind(this)}>
           <h1>

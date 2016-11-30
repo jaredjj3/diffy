@@ -54,7 +54,7 @@ cursor: pointer;
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   line-height: 1.4;
   color: rgb(100, 100, 100);
 }
@@ -137,6 +137,10 @@ nav {
 
 .navigation-right {
   margin-right: 2em;
+}
+
+.navigation-right i {
+  font-size: 28px;
 }
 
 .navigation-left, .navigation-right {
@@ -291,6 +295,82 @@ article a:hover {
   margin-top: 20px;
 }
 
+.author-dropdown {
+  position: relative;
+}
+
+.author-dropdown:hover .author-dropdown-content {
+  display: block;
+  z-index: 1;
+}
+
+.author-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 44px;
+}
+
+.author-dropdown-content li {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+  background: rgb(243, 243, 243);
+  width: 150px;
+  border: 1px solid rgb(232, 232, 232);
+}
+
+.author-dropdown-content li:last-child {
+  border-top: 0;
+}
+
+.author-dropdown-content li:hover {
+  background: rgb(250, 250, 250);
+}
+
+.editor-controls {
+  font-size: 14px;
+  background: rgb(243, 243, 243);
+  display: flex;
+  margin-bottom: 15px;
+  align-content: center;
+  justify-content: flex-end;
+  border-top: 1px solid rgb(232, 232, 232);
+  border-bottom: 1px solid rgb(232, 232, 232);
+}
+
+.editor-controls > li {
+  padding: 10px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  border-left: 1px solid rgb(232, 232, 232);
+}
+
+.editor-controls > li i.golden {
+  color: rgb(218, 165, 32);
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.editor-controls > li i {
+  margin-left: 10px;
+}
+
+.editor-controls > li:hover {
+  cursor: pointer;
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  background: rgb(232, 232, 232);
+}
+
 .click-to-edit {
   padding-left: 10%;
   padding-right: 10%;
@@ -302,25 +382,24 @@ article a:hover {
 }
 
 .editor-container h1 {
-  margin-bottom: 20px;
   font-size: 20px;
 }
 
 .text-editor {
-  color: black;
+  color: rgb(113, 113, 113);
   font-size: 16px;
   width: 900px;
-  height: 200px;
-  margin-top: 20px;
+  height: 600px;
+  margin-top: 10px;
   resize: none;
 }
 
 .editing { 
-    -moz-transition: all .2s ease-in;
-    -o-transition: all .2s ease-in;
-    -webkit-transition: all .2s ease-in;
-    transition: all .2s ease-in;
-    color: rgb(0, 153, 204);
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+  color: rgb(0, 153, 204);
 }
 
 .editor-controls {
