@@ -14,12 +14,13 @@ export default class extends React.Component {
         <nav>
           <div className="navigation-left">
             <Link to="home" className="logo-container">
-              <img className="logo" src="assets/logo.jpg" alt={constants.companyName}/>
+              <img className="logo" src="assets/logo.png" alt={constants.companyName}/>
             </Link>
           </div>
           <div className="navigation-right">
             <ul onClick={this.onClick.bind(this)} className="navigation-links">
               <li className="home"><Link to="home">home</Link></li>
+              <li className="editor"><Link to="editor">editor</Link></li>
             </ul>
           </div>
         </nav>
