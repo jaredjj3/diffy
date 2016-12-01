@@ -29955,10 +29955,6 @@
 	
 	var _Timeline2 = _interopRequireDefault(_Timeline);
 	
-	var _GitDiff = __webpack_require__(288);
-	
-	var _GitDiff2 = _interopRequireDefault(_GitDiff);
-	
 	var _Diffy = __webpack_require__(289);
 	
 	var _Diffy2 = _interopRequireDefault(_Diffy);
@@ -29989,7 +29985,6 @@
 	        'div',
 	        { className: 'show-container' },
 	        _react2.default.createElement(_Timeline2.default, props),
-	        _react2.default.createElement(_GitDiff2.default, props),
 	        _react2.default.createElement(_Diffy2.default, props)
 	      );
 	    }
@@ -30004,7 +29999,7 @@
 /* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30027,102 +30022,119 @@
 	var _class = function (_React$Component) {
 	  _inherits(_class, _React$Component);
 	
-	  function _class() {
+	  function _class(props) {
 	    _classCallCheck(this, _class);
 	
-	    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
+	
+	    _this.state = {
+	      expanded: true
+	    };
+	    return _this;
 	  }
 	
 	  _createClass(_class, [{
-	    key: "render",
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.timelineContainer = document.getElementById('timeline-container');
+	      this.zippy = document.getElementById('zippy');
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
+	      var expanded = this.state.expanded;
+	
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "timeline-container" },
+	        'div',
+	        { id: 'timeline-container', className: 'timeline-container' },
 	        _react2.default.createElement(
-	          "ul",
-	          { className: "history-list" },
+	          'ul',
+	          { className: 'history-list ' + (this.state.expanded ? 'hidden' : 'show') },
 	          _react2.default.createElement(
-	            "li",
+	            'li',
 	            null,
-	            "I'm  a list item."
+	            'I\'m  a list item.'
 	          ),
 	          _react2.default.createElement(
-	            "li",
+	            'li',
 	            null,
-	            "I'm  a list item."
+	            'I\'m  a list item.'
 	          ),
 	          _react2.default.createElement(
-	            "li",
+	            'li',
 	            null,
-	            "I'm  a list item."
+	            'I\'m  a list item.'
 	          ),
 	          _react2.default.createElement(
-	            "li",
+	            'li',
 	            null,
-	            "I'm  a list item."
+	            'I\'m  a list item.'
 	          ),
 	          _react2.default.createElement(
-	            "li",
+	            'li',
 	            null,
-	            "I'm  a list item."
+	            'I\'m  a list item.'
 	          ),
 	          _react2.default.createElement(
-	            "li",
+	            'li',
 	            null,
-	            "I'm  a list item."
+	            'I\'m  a list item.'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'I\'m  a list item.'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'I\'m  a list item.'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'I\'m  a list item.'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'I\'m  a list item.'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'I\'m  a list item.'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'I\'m  a list item.'
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'I\'m  a list item.'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'zippy', className: 'zippy ' + (expanded ? 'expanded' : 'collapsed'), onClick: this.toggleZippy.bind(this) },
+	          _react2.default.createElement(
+	            'i',
+	            { className: 'material-icons left' },
+	            expanded ? 'keyboard_arrow_right' : 'keyboard_arrow_left'
 	          )
 	        )
 	      );
 	    }
-	  }]);
 	
-	  return _class;
-	}(_react2.default.Component);
+	    // event handlers
 	
-	exports.default = _class;
-
-/***/ },
-/* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var _class = function (_React$Component) {
-	  _inherits(_class, _React$Component);
-	
-	  function _class() {
-	    _classCallCheck(this, _class);
-	
-	    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-	  }
-	
-	  _createClass(_class, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "git-diff-container" },
-	        "I AM GITDIFF"
-	      );
+	  }, {
+	    key: 'toggleZippy',
+	    value: function toggleZippy(e) {
+	      var expanded = !this.state.expanded;
+	      this.setState({ expanded: expanded });
 	    }
 	  }]);
 	
@@ -30132,6 +30144,7 @@
 	exports.default = _class;
 
 /***/ },
+/* 288 */,
 /* 289 */
 /***/ function(module, exports, __webpack_require__) {
 

@@ -1,10 +1,31 @@
 import React from 'react';
 
 export default class extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      expanded: true
+    }
+  }
+  
+  componentDidMount () {
+    this.timelineContainer = document.getElementById('timeline-container');
+    this.zippy = document.getElementById('zippy');
+  }
+
   render () {
+    const { expanded } = this.state;
     return(
-      <div className="timeline-container">
-        <ul className="history-list">  
+      <div id="timeline-container" className="timeline-container">
+        <ul className={`history-list ${this.state.expanded ? 'hidden' : 'show'}`}>  
+          <li>I'm  a list item.</li>
+          <li>I'm  a list item.</li>
+          <li>I'm  a list item.</li>
+          <li>I'm  a list item.</li>
+          <li>I'm  a list item.</li>
+          <li>I'm  a list item.</li>
+          <li>I'm  a list item.</li>
           <li>I'm  a list item.</li>
           <li>I'm  a list item.</li>
           <li>I'm  a list item.</li>
@@ -12,7 +33,17 @@ export default class extends React.Component {
           <li>I'm  a list item.</li>
           <li>I'm  a list item.</li>
         </ul>
+        <div id="zippy" className={`zippy ${expanded ? 'expanded' : 'collapsed'}`} onClick={this.toggleZippy.bind(this)}>
+          <i className="material-icons left">{expanded ? 'keyboard_arrow_right' : 'keyboard_arrow_left'}</i>
+        </div>
       </div>
     );
+  }
+
+  // event handlers
+
+  toggleZippy (e) {
+    const expanded = !this.state.expanded
+    this.setState({ expanded });
   }
 }
