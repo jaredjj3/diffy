@@ -490,11 +490,36 @@ article a:hover {
   justify-content: center;
 }
 
+.show-container > div {
+  margin: 0 10px;
+}
+
 /* TIMELINE */
 
 .timeline-container {
   flex-grow: 1;
   background: orchid;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-list > li {
+  width: 80%;
+  background: mediumpurple;
+  height: 100px;
+  margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.history-list > li:first-child {
+  margin-top: 0;
 }
 
 /* GIT-DIFF */
