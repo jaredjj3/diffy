@@ -22599,6 +22599,8 @@
 	    case _articleActions.RESET_ARTICLE:
 	      return _defaultState;
 	    case _articleActions.UPDATE_ARTICLE:
+	      return action.article;
+	    case _articleActions.GENERATE_GIT_DIFF:
 	
 	      return nextState;
 	    default:
@@ -22619,6 +22621,7 @@
 	var UPDATE_BODY = exports.UPDATE_BODY = 'UPDATE_BODY';
 	var RESET_ARTICLE = exports.RESET_ARTICLE = 'RESET_ARTICLE';
 	var UPDATE_ARTICLE = exports.UPDATE_ARTICLE = 'UPDATE_ARTICLE';
+	var GENERATE_GIT_DIFF = exports.GENERATE_GIT_DIFF = 'GENERATE_GIT_DIFF';
 	
 	var updateAuthor = exports.updateAuthor = function updateAuthor(author) {
 	  return {
@@ -22644,6 +22647,13 @@
 	  return {
 	    type: UPDATE_ARTICLE,
 	    article: article
+	  };
+	};
+	
+	var generateGitDiff = exports.generateGitDiff = function generateGitDiff(body) {
+	  return {
+	    type: GENERATE_GIT_DIFF,
+	    body: body
 	  };
 	};
 

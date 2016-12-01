@@ -3,7 +3,8 @@ import {
   UPDATE_AUTHOR,
   UPDATE_BODY,
   RESET_ARTICLE,
-  UPDATE_ARTICLE
+  UPDATE_ARTICLE,
+  GENERATE_GIT_DIFF
 } from '../actions/articleActions';
 
 const _defaultState = Object.freeze(preloadedState.article);
@@ -21,6 +22,8 @@ export default (state = _defaultState, action) => {
     case RESET_ARTICLE:
       return _defaultState;
     case UPDATE_ARTICLE:
+      return action.article;
+    case GENERATE_GIT_DIFF:
       
       return nextState;
     default:
