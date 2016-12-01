@@ -22800,8 +22800,8 @@
 	
 	  }, {
 	    key: 'compare',
-	    value: function compare(str1, str2) {
-	      if (str1 === str2) {
+	    value: function compare(line1, line2) {
+	      if (line1 === line2) {
 	        return { changed: false };
 	      }
 	      var result = { changed: true, changes: [] };

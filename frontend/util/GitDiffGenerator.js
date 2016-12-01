@@ -51,12 +51,12 @@ export default class {
 
   // input is two strings, output is an array of objects
   // that describe the git differences of each output 
-  compare (str1, str2) {
-    if (str1 === str2) {
+  compare (line1, line2) {
+    if (line1 === line2) {
       return { changed: false };
     }
     const result = { changed: true, changes: [] };
-    
+
   }
 
   // input is two strings, output is a float between 0 and 1
