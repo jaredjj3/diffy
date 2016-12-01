@@ -22593,6 +22593,11 @@
 	
 	  Object.freeze(state);
 	  var nextState = Object.assign({}, state);
+	  var dupedHistory = [];
+	  for (var i = 0; i < state.history.length; i++) {
+	    dupedHistory.push(Object.assign({}, state.history[i]));
+	  }
+	  nextState.history = dupedHistory;
 	  switch (action.type) {
 	    case _articleActions.UPDATE_AUTHOR:
 	      nextState.history[state.index].author = action.author;
@@ -22600,19 +22605,15 @@
 	    case _articleActions.UPDATE_BODY:
 	      nextState.history[state.index].body = action.body;
 	      return nextState;
-	    case _articleActions.UPDATE_ARTICLE:
-	      return action.article;
-	    case _articleActions.GENERATE_GIT_DIFF:
-	      var oldBody = state.history[state.index].body;
-	      var newBody = action.body;
-	      var gdg = new _GitDiffGenerator2.default(oldBody, newBody);
-	      gdg.generate();
-	      return nextState;
 	    case _articleActions.DECREASE_INDEX:
 	      nextState.index -= nextState.index > 0 ? 1 : 0;
 	      return nextState;
 	    case _articleActions.INCREASE_INDEX:
 	      nextState.index += nextState.index < state.history.length - 1 ? 1 : 0;
+	      return nextState;
+	    case _articleActions.ADD_HISTORY:
+	      nextState.index++;
+	      nextState.history.push(action.history);
 	      return nextState;
 	    default:
 	      return nextState;
@@ -22633,16 +22634,45 @@
 	
 	var b = _interopRequireWildcard(_sampleBody);
 	
+	var _GitDiffGenerator = __webpack_require__(205);
+	
+	var _GitDiffGenerator2 = _interopRequireDefault(_GitDiffGenerator);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var randomAuthor = function randomAuthor() {
 	  return Math.random() < 0.5 ? 'Jane Doe' : 'John Smith';
 	};
+	var matchFrac = function matchFrac(prevBody, nextBody) {
+	  var gdg = new _GitDiffGenerator2.default(prevBody, nextBody);
+	  return gdg.matchFrac();
+	};
+	var gitDiff = function gitDiff(prevBody, nextBody) {
+	  var gdg = new _GitDiffGenerator2.default(prevBody, nextBody);
+	  return gdg.getGitDiff();
+	};
 	
 	exports.default = {
 	  article: {
 	    index: 2,
-	    history: [{ author: randomAuthor(), body: b.body1 }, { author: randomAuthor(), body: b.body2 }, { author: randomAuthor(), body: b.body3 }]
+	    history: [{
+	      author: randomAuthor(),
+	      body: b.body1,
+	      matchFrac: null,
+	      gitDiff: gitDiff(b.body1, b.body2)
+	    }, {
+	      author: randomAuthor(),
+	      body: b.body2,
+	      matchFrac: matchFrac(b.body1, b.body2),
+	      gitDiff: gitDiff(b.body1, b.body2)
+	    }, {
+	      author: randomAuthor(),
+	      body: b.body3,
+	      matchFrac: matchFrac(b.body2, b.body3),
+	      gitDiff: gitDiff(b.body2, b.body3)
+	    }]
 	  }
 	};
 
@@ -22673,9 +22703,9 @@
 	var UPDATE_AUTHOR = exports.UPDATE_AUTHOR = 'UPDATE_AUTHOR';
 	var UPDATE_BODY = exports.UPDATE_BODY = 'UPDATE_BODY';
 	var UPDATE_ARTICLE = exports.UPDATE_ARTICLE = 'UPDATE_ARTICLE';
-	var GENERATE_GIT_DIFF = exports.GENERATE_GIT_DIFF = 'GENERATE_GIT_DIFF';
 	var DECREASE_INDEX = exports.DECREASE_INDEX = 'DECREASE_INDEX';
 	var INCREASE_INDEX = exports.INCREASE_INDEX = 'INCREASE_INDEX';
+	var ADD_HISTORY = exports.ADD_HISTORY = 'ADD_HISTORY';
 	
 	var updateAuthor = exports.updateAuthor = function updateAuthor(author) {
 	  return {
@@ -22698,13 +22728,6 @@
 	  };
 	};
 	
-	var generateGitDiff = exports.generateGitDiff = function generateGitDiff(body) {
-	  return {
-	    type: GENERATE_GIT_DIFF,
-	    body: body
-	  };
-	};
-	
 	var decreaseIndex = exports.decreaseIndex = function decreaseIndex() {
 	  return {
 	    type: DECREASE_INDEX
@@ -22714,6 +22737,13 @@
 	var increaseIndex = exports.increaseIndex = function increaseIndex() {
 	  return {
 	    type: INCREASE_INDEX
+	  };
+	};
+	
+	var addHistory = exports.addHistory = function addHistory(history) {
+	  return {
+	    type: ADD_HISTORY,
+	    history: history
 	  };
 	};
 
@@ -22731,8 +22761,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var OLD = 'OLD';
-	var NEW = 'NEW';
+	var OLD = exports.OLD = 'OLD';
+	var NEW = exports.NEW = 'NEW';
+	var REMOVED = exports.REMOVED = 'REMOVED';
+	var ADDED = exports.ADDED = 'ADDED';
+	var NONE = exports.NONE = 'NONE';
 	
 	var _class = function () {
 	  // old and new are bodies, which are just strings
@@ -22748,18 +22781,30 @@
 	  }
 	
 	  _createClass(_class, [{
-	    key: 'generate',
-	    value: function generate() {
+	    key: 'getGitDiff',
+	    value: function getGitDiff() {
 	      this.assignByLength();
 	      var longer = this.longer,
 	          shorter = this.shorter;
 	
-	      var diffs = [];
+	      var diffed = [];
 	      for (var i = 0; i < longer.length; i++) {
 	        var str1 = longer.lines[i];
 	        var str2 = shorter.lines[i] ? shorter.lines[i] : "";
-	        diffs.push(this.compare(str1, str2));
+	        if (str1 === str2) {
+	          diffed.push({ type: NONE, lines: str1 });
+	        } else {
+	          var oldStr = longer.type === OLD ? str1 : str2;
+	          var newStr = shorter.type === NEW ? str2 : str1;
+	          if (oldStr !== '') {
+	            diffed.push({ type: REMOVED, lines: oldStr });
+	          }
+	          if (newStr !== '') {
+	            diffed.push({ type: ADDED, lines: newStr });
+	          }
+	        }
 	      }
+	      return diffed;
 	    }
 	
 	    // assigns this.longer and this.shorter based on
@@ -22800,20 +22845,15 @@
 	
 	  }, {
 	    key: 'compare',
-	    value: function compare(line1, line2) {
-	      if (line1 === line2) {
-	        return { changed: false };
-	      }
-	      var result = { changed: true, changes: [] };
-	    }
+	    value: function compare(line1, line2) {}
 	
 	    // input is two strings, output is a float between 0 and 1
 	    // shows the match percentage between two strings, relative
 	    // to the longer string
 	
 	  }, {
-	    key: 'matchPercentage',
-	    value: function matchPercentage() {
+	    key: 'matchFrac',
+	    value: function matchFrac() {
 	      var freq1 = this.frequency(this.oldLines.join(" "));
 	      var freq2 = this.frequency(this.newLines.join(" "));
 	      var longer = void 0,
@@ -29586,6 +29626,7 @@
 	  return {
 	    body: article.body,
 	    author: article.author,
+	    history: state.article.history,
 	    indexStr: '(version ' + (index + 1) + ' / ' + state.article.history.length + ')'
 	  };
 	};
@@ -29604,8 +29645,8 @@
 	    increaseIndex: function increaseIndex() {
 	      return dispatch((0, _articleActions.increaseIndex)());
 	    },
-	    generateGitDiff: function generateGitDiff(body) {
-	      return dispatch((0, _articleActions.generateGitDiff)(body));
+	    addHistory: function addHistory(history) {
+	      return dispatch((0, _articleActions.addHistory)(history));
 	    }
 	  };
 	};
@@ -29627,6 +29668,10 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _GitDiffGenerator = __webpack_require__(205);
+	
+	var _GitDiffGenerator2 = _interopRequireDefault(_GitDiffGenerator);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29782,7 +29827,16 @@
 	    key: 'onSaveClick',
 	    value: function onSaveClick(e) {
 	      e.stopPropagation();
-	      this.props.generateGitDiff(this.state.body);
+	      var oldBody = this.props.body;
+	      var newBody = this.state.body;
+	      var gdg = new _GitDiffGenerator2.default(oldBody, newBody);
+	      this.props.addHistory({
+	        author: this.props.author,
+	        body: newBody,
+	        matchFrac: gdg.matchFrac(),
+	        gitDiff: gdg.getGitDiff()
+	      });
+	      console.log(window.store.getState().article.history);
 	    }
 	  }, {
 	    key: 'onAuthorClick',

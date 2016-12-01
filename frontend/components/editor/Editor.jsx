@@ -1,4 +1,5 @@
 import React from 'react';
+import GitDiffGenerator from '../../util/GitDiffGenerator';
 
 export default class extends React.Component {
   constructor(props) {
@@ -73,7 +74,16 @@ export default class extends React.Component {
 
   onSaveClick (e) {
     e.stopPropagation();
-    this.props.generateGitDiff(this.state.body);
+    const oldBody = this.props.body;
+    const newBody = this.state.body;
+    const gdg = new GitDiffGenerator(oldBody, newBody);
+    this.props.addHistory({
+      author: this.props.author,
+      body: newBody,
+      matchFrac: gdg.matchFrac(),
+      gitDiff: gdg.getGitDiff()
+    });
+    console.log(window.store.getState().article.history);
   }
 
   onAuthorClick (author) {

@@ -1,5 +1,8 @@
-const OLD = 'OLD';
-const NEW = 'NEW';
+export const OLD     = 'OLD';
+export const NEW     = 'NEW';
+export const REMOVED = 'REMOVED';
+export const ADDED   = 'ADDED';
+export const NONE    = 'NONE';
 
 export default class {
   // old and new are bodies, which are just strings
@@ -8,15 +11,27 @@ export default class {
     this.newLines = newBody.split('\n').filter( line => line.trim() !== '');
   }
 
-  generate () {
+  getGitDiff () {
     this.assignByLength();
     const { longer, shorter } = this;
-    const diffs = [];
+    const diffed = [];
     for (let i = 0; i < longer.length; i++) {
       const str1 = longer.lines[i];
       const str2 = shorter.lines[i] ? shorter.lines[i] : "";
-      diffs.push(this.compare(str1, str2));
+      if (str1 === str2) {
+        diffed.push({ type: NONE, lines: str1 });
+      } else {
+        const oldStr = longer.type === OLD ? str1 : str2;
+        const newStr = shorter.type === NEW ? str2 : str1;
+        if (oldStr !== '') {
+          diffed.push({ type: REMOVED, lines: oldStr });
+        }
+        if (newStr !== '') {
+          diffed.push({ type: ADDED, lines: newStr });
+        }
+      }
     }
+    return diffed;
   }
 
   // assigns this.longer and this.shorter based on
@@ -52,17 +67,13 @@ export default class {
   // input is two strings, output is an array of objects
   // that describe the git differences of each output 
   compare (line1, line2) {
-    if (line1 === line2) {
-      return { changed: false };
-    }
-    const result = { changed: true, changes: [] };
 
   }
 
   // input is two strings, output is a float between 0 and 1
   // shows the match percentage between two strings, relative
   // to the longer string
-  matchPercentage () {
+  matchFrac () {
     const freq1 = this.frequency(this.oldLines.join(" "));
     const freq2 = this.frequency(this.newLines.join(" "));
     let longer, shorter;

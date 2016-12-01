@@ -5,7 +5,7 @@ import {
   updateBody,
   increaseIndex,
   decreaseIndex,
-  generateGitDiff 
+  addHistory
 } from '../../actions/articleActions';
 
 const mapStateToProps = state => {
@@ -14,6 +14,7 @@ const mapStateToProps = state => {
   return {
     body: article.body,
     author: article.author,
+    history: state.article.history,
     indexStr: `(version ${index + 1} / ${state.article.history.length})`
   };
 };
@@ -23,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
   updateBody: body => dispatch(updateBody(body)),
   decreaseIndex: () => dispatch(decreaseIndex()),
   increaseIndex: () => dispatch(increaseIndex()),
-  generateGitDiff: body => dispatch(generateGitDiff(body))
+  addHistory: history => dispatch(addHistory(history))
 });
 
 export default connect(
