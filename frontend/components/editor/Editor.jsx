@@ -33,8 +33,8 @@ export default class extends React.Component {
             next<i className="material-icons">redo</i>
             <div className="tooltip">Unsaved changes will be lost</div>
           </li>
-          <li onClick={this.onUpdateClick.bind(this)}>
-            update<i className="material-icons golden">assignment_turned_in</i>
+          <li onClick={this.onSaveClick.bind(this)}>
+            save<i className="material-icons golden">assignment_turned_in</i>
           </li>
         </ul>
         <div className="click-to-edit" onClick={this.onBodyClick.bind(this)}>
@@ -71,9 +71,9 @@ export default class extends React.Component {
     this.setState({ body: e.target.value });
   }
 
-  onUpdateClick (e) {
+  onSaveClick (e) {
     e.stopPropagation();
-    this.props.generateGitDiff(this.props.body);
+    this.props.generateGitDiff(this.state.body);
   }
 
   onAuthorClick (author) {

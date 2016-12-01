@@ -4,26 +4,27 @@ const NEW = 'NEW';
 export default class {
   // old and new are bodies, which are just strings
   constructor (oldBody, newBody) {
-    this.oldLines = oldBody.split("\n");
-    this.newLines = newBody.split("\n");
+    this.oldLines = oldBody.split('\n').filter( line => line.trim() !== '');
+    this.newLines = newBody.split('\n').filter( line => line.trim() !== '');
   }
 
   generate () {
     this.assignByLength();
     const { longer, shorter } = this;
+    const percentages = [];
     for (let i = 0; i < longer.length; i++) {
-      const str1 = longer[i];
-      const str2 = shorter[i];
-      debugger
-      console.log(this.compare(str1, str2));
+      const str1 = longer.lines[i];
+      const str2 = shorter.lines[i] ? shorter.lines[i] : "";
+      this.compare(str1, str2);
     }
+    console.log(this.difference());
   }
 
   // assigns this.longer and this.shorter based on
   // how many lines this.oldLines and this.newLines has
   assignByLength () {
-    const oldLength = Object.keys(this.oldLines);
-    const newLength = Object.keys(this.newLines);
+    const oldLength = Object.keys(this.oldLines).length;
+    const newLength = Object.keys(this.newLines).length;
     if (oldLength > newLength) {
       this.longer = {
         lines: this.oldLines,
@@ -42,7 +43,7 @@ export default class {
         type: NEW
       };
       this.shorter = {
-        lines: this.newLines,
+        lines: this.oldLines,
         length: oldLength,
         type: OLD
       };
@@ -55,18 +56,14 @@ export default class {
     if (str1 === str2) {
       return [];
     }
-    return this.matchPercentage(str1, str2);
   }
 
   // input is two strings, output is a float between 0 and 1
   // shows the match percentage between two strings, relative
   // to the longer string
-  matchPercentage (str1, str2) {
-    if (str1 === str2) {
-      return 1;
-    }
-    const freq1 = this.frequency(str1);
-    const freq2 = this.frequency(str2);
+  difference () {
+    const freq1 = this.frequency(this.oldLines.join(" "));
+    const freq2 = this.frequency(this.newLines.join(" "));
     let longer, shorter;
     if (freq1.total > freq2.total) {
       longer = freq1;
@@ -75,11 +72,11 @@ export default class {
       longer = freq2;
       shorter = freq1;
     }
-    const words = Object.keys(longer);
+    const words = Object.keys(longer.words);
     let discrepancies = 0;
     words.forEach( word => {
-      const shorterWord = word in shorter ? shorter[word] : 0; 
-      discrepancies += longer[word] - shorterWord;
+      const shorterWord = word in shorter.words ? shorter.words[word] : 0; 
+      discrepancies += longer.words[word] - shorterWord;
     });
     return discrepancies / longer.total;
   }
@@ -90,15 +87,20 @@ export default class {
     const words = str.split(" ");
     const result = {};
     result.total = 0;
+    result.words = {}
     for (let i = 0; i < words.length; i++) {
-      const word = words[i];
+      const word = words[i]
+        .split('')
+        .filter( char => ![',','.','!','?'].includes(char))
+        .join('')
+        .toLowerCase();
       if (word in result) {
-        result[word]++;
+        result.words[word]++;
       } else {
-        result[word] = 1;
+        result.words[word] = 1;
       }
-      result.total++;
     }
+    result.total = Object.keys(result.words).length;
     return result;
   }
 }
