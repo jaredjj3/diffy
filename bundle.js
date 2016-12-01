@@ -22603,8 +22603,10 @@
 	    case _articleActions.UPDATE_ARTICLE:
 	      return action.article;
 	    case _articleActions.GENERATE_GIT_DIFF:
-	      // const gdg = new GitDiffGenerator(oldLines, newLines);
-	      // gdg.generate();
+	      var oldBody = state.history[state.index].body;
+	      var newBody = action.body;
+	      var gdg = new _GitDiffGenerator2.default(oldBody, newBody);
+	      gdg.generate();
 	      return nextState;
 	    case _articleActions.DECREASE_INDEX:
 	      nextState.index -= nextState.index > 0 ? 1 : 0;
@@ -29496,7 +29498,8 @@
 	    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
 	
 	    _this.state = {
-	      isEditing: false
+	      isEditing: false,
+	      body: _this.props.body
 	    };
 	    return _this;
 	  }
@@ -29541,22 +29544,32 @@
 	          ),
 	          _react2.default.createElement(
 	            'li',
-	            { onClick: this.onPrevClick.bind(this) },
+	            { className: 'editor-indexer', onClick: this.onPrevClick.bind(this) },
 	            'prev',
 	            _react2.default.createElement(
 	              'i',
 	              { className: 'material-icons' },
 	              'undo'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'tooltip' },
+	              'Unsaved changes will be lost'
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'li',
-	            { onClick: this.onNextClick.bind(this) },
+	            { className: 'editor-indexer', onClick: this.onNextClick.bind(this) },
 	            'next',
 	            _react2.default.createElement(
 	              'i',
 	              { className: 'material-icons' },
 	              'redo'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'tooltip' },
+	              'Unsaved changes will be lost'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -29589,7 +29602,7 @@
 	          ),
 	          _react2.default.createElement('textarea', {
 	            id: 'text-editor',
-	            value: this.props.body,
+	            value: this.state.body,
 	            className: 'text-editor',
 	            onChange: this.onBodyChange.bind(this)
 	          })
@@ -29616,7 +29629,7 @@
 	        this.setState({ isEditing: true });
 	        this.setEditingTimeout();
 	      }
-	      this.props.updateBody(e.target.value);
+	      this.setState({ body: e.target.value });
 	    }
 	  }, {
 	    key: 'onUpdateClick',
@@ -29637,11 +29650,13 @@
 	    key: 'onPrevClick',
 	    value: function onPrevClick(e) {
 	      this.props.decreaseIndex();
+	      this.setState({ body: this.props.body });
 	    }
 	  }, {
 	    key: 'onNextClick',
 	    value: function onNextClick(e) {
 	      this.props.increaseIndex();
+	      this.setState({ body: this.props.body });
 	    }
 	
 	    // helpers
@@ -29919,11 +29934,11 @@
 	
 	var _class = function () {
 	  // old and new are bodies, which are just strings
-	  function _class(oldLines, newLines) {
+	  function _class(oldBody, newBody) {
 	    _classCallCheck(this, _class);
 	
-	    this.oldLines = oldLines;
-	    this.newLines = newLines;
+	    this.oldLines = oldBody.split("\n");
+	    this.newLines = newBody.split("\n");
 	  }
 	
 	  _createClass(_class, [{
@@ -29936,6 +29951,7 @@
 	      for (var i = 0; i < longer.length; i++) {
 	        var str1 = longer[i];
 	        var str2 = shorter[i];
+	        debugger;
 	        console.log(this.compare(str1, str2));
 	      }
 	    }

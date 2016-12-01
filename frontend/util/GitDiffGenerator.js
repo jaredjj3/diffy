@@ -3,9 +3,9 @@ const NEW = 'NEW';
 
 export default class {
   // old and new are bodies, which are just strings
-  constructor (oldLines, newLines) {
-    this.oldLines = oldLines;
-    this.newLines = newLines;
+  constructor (oldBody, newBody) {
+    this.oldLines = oldBody.split("\n");
+    this.newLines = newBody.split("\n");
   }
 
   generate () {
@@ -14,6 +14,7 @@ export default class {
     for (let i = 0; i < longer.length; i++) {
       const str1 = longer[i];
       const str2 = shorter[i];
+      debugger
       console.log(this.compare(str1, str2));
     }
   }

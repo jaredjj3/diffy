@@ -24,8 +24,10 @@ export default (state = _defaultState, action) => {
     case UPDATE_ARTICLE:
       return action.article;
     case GENERATE_GIT_DIFF:
-      // const gdg = new GitDiffGenerator(oldLines, newLines);
-      // gdg.generate();
+      const oldBody = state.history[state.index].body;
+      const newBody = action.body;
+      const gdg = new GitDiffGenerator(oldBody, newBody);
+      gdg.generate();
       return nextState;
     case DECREASE_INDEX:
       nextState.index -= nextState.index > 0 ? 1 : 0;

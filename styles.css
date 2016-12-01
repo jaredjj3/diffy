@@ -413,6 +413,28 @@ article a:hover {
   display: flex;
 }
 
+.editor-indexer {
+  position: relative;
+}
+
+.editor-indexer:hover .tooltip {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.tooltip {
+  position: absolute;
+  font-size: 10px;
+  color: goldenrod;
+  background: lightyellow;
+  border: 1px solid goldenrod;
+  bottom: -25px;
+  left: 20px;
+  padding: 2px 5px;
+  display: none;
+}
+
 /* BUTTONS */
 
 .btn {

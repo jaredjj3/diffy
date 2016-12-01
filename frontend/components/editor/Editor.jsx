@@ -6,6 +6,7 @@ export default class extends React.Component {
 
     this.state = {
       isEditing: false,
+      body: this.props.body
     };
   }
 
@@ -24,8 +25,14 @@ export default class extends React.Component {
               <li onClick={this.onAuthorClick('John Smith')}>John Smith</li>
             </ul>
           </li>
-          <li onClick={this.onPrevClick.bind(this)}>prev<i className="material-icons">undo</i></li>
-          <li onClick={this.onNextClick.bind(this)}>next<i className="material-icons">redo</i></li>
+          <li className="editor-indexer" onClick={this.onPrevClick.bind(this)}>
+            prev<i className="material-icons">undo</i>
+            <div className="tooltip">Unsaved changes will be lost</div>
+          </li>
+          <li className="editor-indexer" onClick={this.onNextClick.bind(this)}>
+            next<i className="material-icons">redo</i>
+            <div className="tooltip">Unsaved changes will be lost</div>
+          </li>
           <li onClick={this.onUpdateClick.bind(this)}>
             update<i className="material-icons golden">assignment_turned_in</i>
           </li>
@@ -36,7 +43,7 @@ export default class extends React.Component {
           </h1>
           <textarea 
             id="text-editor" 
-            value={this.props.body} 
+            value={this.state.body} 
             className="text-editor"
             onChange={this.onBodyChange.bind(this)}
           ></textarea>
@@ -61,7 +68,7 @@ export default class extends React.Component {
       this.setState({ isEditing: true });
       this.setEditingTimeout();
     }
-    this.props.updateBody(e.target.value);
+    this.setState({ body: e.target.value });
   }
 
   onUpdateClick (e) {
@@ -77,10 +84,12 @@ export default class extends React.Component {
 
   onPrevClick (e) {
     this.props.decreaseIndex();
+    this.setState({ body: this.props.body });
   }
 
   onNextClick (e) {
     this.props.increaseIndex();
+    this.setState({ body: this.props.body });
   }
 
   // helpers
