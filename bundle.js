@@ -22598,7 +22598,7 @@
 	      nextState.author = action.author;
 	      return nextState;
 	    case _articleActions.UPDATE_BODY:
-	      nextState.body = action.body;
+	      nextState.history[state.index].body = action.body;
 	      return nextState;
 	    case _articleActions.UPDATE_ARTICLE:
 	      return action.article;

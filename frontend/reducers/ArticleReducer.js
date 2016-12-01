@@ -19,7 +19,7 @@ export default (state = _defaultState, action) => {
       nextState.author = action.author;
       return nextState;
     case UPDATE_BODY:
-      nextState.body = action.body;
+      nextState.history[state.index].body = action.body;
       return nextState;
     case UPDATE_ARTICLE:
       return action.article;
