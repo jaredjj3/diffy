@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import Editor from './Editor';
 import { 
   updateAuthor,
-  updateBody 
+  updateBody,
+  resetArticle 
 } from '../../actions/articleActions';
 
 const mapStateToProps = state => ({
@@ -12,7 +13,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateAuthor: author => dispatch(updateAuthor(author)),
-  updateBody: body => dispatch(updateBody(body))
+  updateBody: body => dispatch(updateBody(body)),
+  resetArticle: () => dispatch(resetArticle())
 });
 
 export default connect(

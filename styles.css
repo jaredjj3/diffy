@@ -292,7 +292,6 @@ article a:hover {
 
 .editor-container {
   margin: 0 auto;
-  margin-top: 20px;
 }
 
 .author-dropdown {
@@ -403,10 +402,10 @@ article a:hover {
 }
 
 .not-editing {
-  -moz-transition: all .1s ease-in;
-  -o-transition: all .1s ease-in;
-  -webkit-transition: all .1s ease-in;
-  transition: all .1s ease-in;
+  -moz-transition: all 3s ease-in;
+  -o-transition: all 3s ease-in;
+  -webkit-transition: all 3s ease-in;
+  transition: all 3s ease-in;
   color: rgb(100, 100, 100);
 }
 

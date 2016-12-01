@@ -24,6 +24,7 @@ export default class extends React.Component {
               <li onClick={this.onAuthorClick('John Smith')}>John Smith</li>
             </ul>
           </li>
+          <li onClick={this.onResetClick.bind(this)}>reset<i className="material-icons">restore</i></li>
           <li>update<i className="material-icons golden">assignment_turned_in</i></li>
         </ul>
         <div className="click-to-edit" onClick={this.onBodyClick.bind(this)}>
@@ -61,5 +62,9 @@ export default class extends React.Component {
     return e => {
       this.props.updateAuthor(author);
     };
+  }
+
+  onResetClick (e) {
+    this.props.resetArticle();
   }
 }
