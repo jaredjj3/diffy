@@ -15,6 +15,7 @@ export default class extends React.Component {
   componentDidMount () {
     this.textEditor = document.getElementById('text-editor');
     this.noChangeError = document.getElementById('no-change-error');
+    this.changeNotice = document.getElementById('change-notice');
   }
 
   componentWillReceiveProps (nextProps) {
@@ -46,6 +47,7 @@ export default class extends React.Component {
           <li className="editor-save" onClick={this.onSaveClick.bind(this)}>
             save<i className="material-icons golden">assignment_turned_in</i>
             <div id="no-change-error" className="tooltip no-changes">No changes detected</div>
+            <div id="change-notice" className="tooltip changed">Saved</div>
           </li>
         </ul>
         <div className="click-to-edit" onClick={this.onBodyClick.bind(this)}>
@@ -91,10 +93,14 @@ export default class extends React.Component {
       const klass = this.noChangeError.className;
       this.noChangeError.className += " show-error";
       window.setTimeout(() => {
-        // hooray closures
         this.noChangeError.className = klass;
       }, 3000);
     } else {
+      const klass = this.changeNotice.className;
+      this.changeNotice.className += " show-error";
+      window.setTimeout(() => {
+        this.changeNotice.className = klass;
+      }, 3000);
       this.props.addHistory({
         author: this.state.author,
         body: newBody,

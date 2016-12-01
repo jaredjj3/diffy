@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import Editor from './Editor';
 import { 
-  updateAuthor,
   updateBody,
   increaseIndex,
   decreaseIndex,
@@ -20,7 +19,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateAuthor: author => dispatch(updateAuthor(author)),
   updateBody: body => dispatch(updateBody(body)),
   decreaseIndex: () => dispatch(decreaseIndex()),
   increaseIndex: () => dispatch(increaseIndex()),

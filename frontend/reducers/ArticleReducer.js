@@ -1,6 +1,5 @@
 import preloadedState from '../store/preloadedState';
 import {
-  UPDATE_AUTHOR,
   UPDATE_BODY,
   DECREASE_INDEX,
   INCREASE_INDEX,
@@ -19,9 +18,6 @@ export default (state = _defaultState, action) => {
   }
   nextState.history = dupedHistory;
   switch (action.type) {
-    case UPDATE_AUTHOR:
-      nextState.history[state.index].author = action.author;
-      return nextState;
     case UPDATE_BODY:
       nextState.history[state.index].body = action.body;
       return nextState;

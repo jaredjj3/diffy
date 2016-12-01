@@ -22599,9 +22599,6 @@
 	  }
 	  nextState.history = dupedHistory;
 	  switch (action.type) {
-	    case _articleActions.UPDATE_AUTHOR:
-	      nextState.history[state.index].author = action.author;
-	      return nextState;
 	    case _articleActions.UPDATE_BODY:
 	      nextState.history[state.index].body = action.body;
 	      return nextState;
@@ -22700,19 +22697,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var UPDATE_AUTHOR = exports.UPDATE_AUTHOR = 'UPDATE_AUTHOR';
 	var UPDATE_BODY = exports.UPDATE_BODY = 'UPDATE_BODY';
 	var UPDATE_ARTICLE = exports.UPDATE_ARTICLE = 'UPDATE_ARTICLE';
 	var DECREASE_INDEX = exports.DECREASE_INDEX = 'DECREASE_INDEX';
 	var INCREASE_INDEX = exports.INCREASE_INDEX = 'INCREASE_INDEX';
 	var ADD_HISTORY = exports.ADD_HISTORY = 'ADD_HISTORY';
-	
-	var updateAuthor = exports.updateAuthor = function updateAuthor(author) {
-	  return {
-	    type: UPDATE_AUTHOR,
-	    author: author
-	  };
-	};
 	
 	var updateBody = exports.updateBody = function updateBody(body) {
 	  return {
@@ -29633,9 +29622,6 @@
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    updateAuthor: function updateAuthor(author) {
-	      return dispatch((0, _articleActions.updateAuthor)(author));
-	    },
 	    updateBody: function updateBody(body) {
 	      return dispatch((0, _articleActions.updateBody)(body));
 	    },
@@ -29702,6 +29688,7 @@
 	    value: function componentDidMount() {
 	      this.textEditor = document.getElementById('text-editor');
 	      this.noChangeError = document.getElementById('no-change-error');
+	      this.changeNotice = document.getElementById('change-notice');
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -29787,6 +29774,11 @@
 	              'div',
 	              { id: 'no-change-error', className: 'tooltip no-changes' },
 	              'No changes detected'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'change-notice', className: 'tooltip changed' },
+	              'Saved'
 	            )
 	          )
 	        ),
@@ -29852,17 +29844,23 @@
 	          var klass = _this2.noChangeError.className;
 	          _this2.noChangeError.className += " show-error";
 	          window.setTimeout(function () {
-	            // hooray closures
 	            _this2.noChangeError.className = klass;
 	          }, 3000);
 	        })();
 	      } else {
-	        this.props.addHistory({
-	          author: this.state.author,
-	          body: newBody,
-	          matchFrac: gdg.matchFrac(),
-	          gitDiff: gdg.getGitDiff()
-	        });
+	        (function () {
+	          var klass = _this2.changeNotice.className;
+	          _this2.changeNotice.className += " show-error";
+	          window.setTimeout(function () {
+	            _this2.changeNotice.className = klass;
+	          }, 3000);
+	          _this2.props.addHistory({
+	            author: _this2.state.author,
+	            body: newBody,
+	            matchFrac: gdg.matchFrac(),
+	            gitDiff: gdg.getGitDiff()
+	          });
+	        })();
 	      }
 	    }
 	  }, {
@@ -29924,7 +29922,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
-	  return {};
+	  var article = state.article;
+	  return {
+	    index: article.index,
+	    history: article.history
+	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -29981,12 +29983,14 @@
 	  _createClass(_class, [{
 	    key: 'render',
 	    value: function render() {
+	      var props = this.props;
+	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'show-' },
-	        _react2.default.createElement(_Timeline2.default, null),
-	        _react2.default.createElement(_GitDiff2.default, null),
-	        _react2.default.createElement(_Diffy2.default, null)
+	        { className: 'show-container' },
+	        _react2.default.createElement(_Timeline2.default, props),
+	        _react2.default.createElement(_GitDiff2.default, props),
+	        _react2.default.createElement(_Diffy2.default, props)
 	      );
 	    }
 	  }]);
@@ -30000,7 +30004,7 @@
 /* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30030,12 +30034,45 @@
 	  }
 	
 	  _createClass(_class, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'I AM TIMELINE'
+	        "div",
+	        { className: "timeline-container" },
+	        _react2.default.createElement(
+	          "ul",
+	          { className: "history-list" },
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            "I'm  a list item."
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            "I'm  a list item."
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            "I'm  a list item."
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            "I'm  a list item."
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            "I'm  a list item."
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            "I'm  a list item."
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -30049,7 +30086,7 @@
 /* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30079,12 +30116,12 @@
 	  }
 	
 	  _createClass(_class, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'I AM GITDIFF'
+	        "div",
+	        { className: "git-diff-container" },
+	        "I AM GITDIFF"
 	      );
 	    }
 	  }]);
@@ -30098,7 +30135,7 @@
 /* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30128,12 +30165,12 @@
 	  }
 	
 	  _createClass(_class, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'I AM DIFFY'
+	        "div",
+	        { className: "diffy-container" },
+	        "I AM DIFFY"
 	      );
 	    }
 	  }]);

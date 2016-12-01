@@ -453,6 +453,13 @@ article a:hover {
   cursor: default;
 }
 
+.changed {
+  color: darkgreen;
+  background: lightgreen;
+  left: 53px;
+  border: 1px solid darkgreen;
+}
+
 /* BUTTONS */
 
 .btn {
@@ -474,3 +481,32 @@ article a:hover {
   color: rgb(113, 113, 113);
 }
 
+/* SHOW */
+
+.show-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* TIMELINE */
+
+.timeline-container {
+  flex-grow: 1;
+  background: orchid;
+}
+
+/* GIT-DIFF */
+
+.git-diff-container {
+  flex-grow: 3;
+  background: salmon;
+}
+
+/* DIFFY */
+
+.diffy-container {
+  flex-grow: 3;
+  background: lightgreen;
+}

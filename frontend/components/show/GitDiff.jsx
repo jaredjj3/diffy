@@ -3,7 +3,7 @@ import React from 'react';
 export default class extends React.Component {
   render () {
     return(
-      <div>
+      <div className="git-diff-container">
         I AM GITDIFF
       </div>
     );
