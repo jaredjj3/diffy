@@ -1,1 +1,3 @@
-The purpose of this readme is to get the format of gitdiffs.
+The purpose of this readme is to the format of gitdiffs.
+
+Test 1

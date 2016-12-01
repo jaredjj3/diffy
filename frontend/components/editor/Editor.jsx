@@ -47,10 +47,17 @@ export default class extends React.Component {
   onBodyClick (e) {
     this.textEditor.focus();
     this.setState({ isEditing: true });
-    setTimeout(() => this.setState({ isEditing: false }), 3000);
+    this.setEditingTimeout();
   }
 
   onBodyChange (e) {
+    if (this.state.isEditing) {
+      window.clearTimeout(window.timeoutHandle);
+      this.setEditingTimeout();
+    } else {
+      this.setState({ isEditing: true });
+      this.setEditingTimeout();
+    }
     this.props.updateBody(e.target.value);
   }
 
@@ -66,5 +73,11 @@ export default class extends React.Component {
 
   onResetClick (e) {
     this.props.resetArticle();
+  }
+
+  // helpers
+
+  setEditingTimeout () {
+    window.timeoutHandle = setTimeout(() => this.setState({ isEditing: false }), 3000);
   }
 }

@@ -29553,17 +29553,20 @@
 	  }, {
 	    key: 'onBodyClick',
 	    value: function onBodyClick(e) {
-	      var _this2 = this;
-	
 	      this.textEditor.focus();
 	      this.setState({ isEditing: true });
-	      setTimeout(function () {
-	        return _this2.setState({ isEditing: false });
-	      }, 3000);
+	      this.setEditingTimeout();
 	    }
 	  }, {
 	    key: 'onBodyChange',
 	    value: function onBodyChange(e) {
+	      if (this.state.isEditing) {
+	        window.clearTimeout(window.timeoutHandle);
+	        this.setEditingTimeout();
+	      } else {
+	        this.setState({ isEditing: true });
+	        this.setEditingTimeout();
+	      }
 	      this.props.updateBody(e.target.value);
 	    }
 	  }, {
@@ -29574,16 +29577,28 @@
 	  }, {
 	    key: 'onAuthorClick',
 	    value: function onAuthorClick(author) {
-	      var _this3 = this;
+	      var _this2 = this;
 	
 	      return function (e) {
-	        _this3.props.updateAuthor(author);
+	        _this2.props.updateAuthor(author);
 	      };
 	    }
 	  }, {
 	    key: 'onResetClick',
 	    value: function onResetClick(e) {
 	      this.props.resetArticle();
+	    }
+	
+	    // helpers
+	
+	  }, {
+	    key: 'setEditingTimeout',
+	    value: function setEditingTimeout() {
+	      var _this3 = this;
+	
+	      window.timeoutHandle = setTimeout(function () {
+	        return _this3.setState({ isEditing: false });
+	      }, 3000);
 	    }
 	  }]);
 	
