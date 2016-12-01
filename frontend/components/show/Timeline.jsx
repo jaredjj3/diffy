@@ -6,7 +6,7 @@ export default class extends React.Component {
 
     this.state = {
       expanded: true
-    }
+    };
   }
   
   componentDidMount () {
