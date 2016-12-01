@@ -7,7 +7,8 @@ export default class extends React.Component {
 
     this.state = {
       isEditing: false,
-      body: this.props.body
+      body: this.props.body,
+      author: this.props.author
     };
   }
 
@@ -18,7 +19,8 @@ export default class extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     this.setState({
-      body: nextProps.body
+      body: nextProps.body,
+      author: nextProps.author
     });
   }
   
@@ -48,7 +50,7 @@ export default class extends React.Component {
         </ul>
         <div className="click-to-edit" onClick={this.onBodyClick.bind(this)}>
           <h1>
-            Start <span className={this.state.isEditing ? 'editing' : 'not-editing'}>editing</span>, {this.props.author}. It's easy. {this.props.indexStr}
+            Start <span className={this.state.isEditing ? 'editing' : 'not-editing'}>editing</span>, {this.state.author}. It's easy. {this.props.indexStr}
           </h1>
           <textarea 
             id="text-editor" 
@@ -94,7 +96,7 @@ export default class extends React.Component {
       }, 3000);
     } else {
       this.props.addHistory({
-        author: this.props.author,
+        author: this.state.author,
         body: newBody,
         matchFrac: gdg.matchFrac(),
         gitDiff: gdg.getGitDiff()
@@ -104,7 +106,7 @@ export default class extends React.Component {
 
   onAuthorClick (author) {
     return e => {
-      this.props.updateAuthor(author);
+      this.setState({ author });
     };
   }
 

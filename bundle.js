@@ -29691,7 +29691,8 @@
 	
 	    _this.state = {
 	      isEditing: false,
-	      body: _this.props.body
+	      body: _this.props.body,
+	      author: _this.props.author
 	    };
 	    return _this;
 	  }
@@ -29706,7 +29707,8 @@
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      this.setState({
-	        body: nextProps.body
+	        body: nextProps.body,
+	        author: nextProps.author
 	      });
 	    }
 	  }, {
@@ -29801,7 +29803,7 @@
 	              'editing'
 	            ),
 	            ', ',
-	            this.props.author,
+	            this.state.author,
 	            '. It\'s easy. ',
 	            this.props.indexStr
 	          ),
@@ -29856,7 +29858,7 @@
 	        })();
 	      } else {
 	        this.props.addHistory({
-	          author: this.props.author,
+	          author: this.state.author,
 	          body: newBody,
 	          matchFrac: gdg.matchFrac(),
 	          gitDiff: gdg.getGitDiff()
@@ -29869,7 +29871,7 @@
 	      var _this3 = this;
 	
 	      return function (e) {
-	        _this3.props.updateAuthor(author);
+	        _this3.setState({ author: author });
 	      };
 	    }
 	  }, {
