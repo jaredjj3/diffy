@@ -29700,6 +29700,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.textEditor = document.getElementById('text-editor');
+	      this.noChangeError = document.getElementById('no-change-error');
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -29773,12 +29774,17 @@
 	          ),
 	          _react2.default.createElement(
 	            'li',
-	            { onClick: this.onSaveClick.bind(this) },
+	            { className: 'editor-save', onClick: this.onSaveClick.bind(this) },
 	            'save',
 	            _react2.default.createElement(
 	              'i',
 	              { className: 'material-icons golden' },
 	              'assignment_turned_in'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'no-change-error', className: 'tooltip no-changes' },
+	              'No changes detected'
 	            )
 	          )
 	        ),
@@ -29833,25 +29839,37 @@
 	  }, {
 	    key: 'onSaveClick',
 	    value: function onSaveClick(e) {
+	      var _this2 = this;
+	
 	      e.stopPropagation();
 	      var oldBody = this.props.body;
 	      var newBody = this.state.body;
 	      var gdg = new _GitDiffGenerator2.default(oldBody, newBody);
-	      this.props.addHistory({
-	        author: this.props.author,
-	        body: newBody,
-	        matchFrac: gdg.matchFrac(),
-	        gitDiff: gdg.getGitDiff()
-	      });
-	      console.log(window.store.getState().article.history);
+	      if (gdg.matchFrac() === 0) {
+	        (function () {
+	          var klass = _this2.noChangeError.className;
+	          _this2.noChangeError.className += " show-error";
+	          window.setTimeout(function () {
+	            // hooray closures
+	            _this2.noChangeError.className = klass;
+	          }, 3000);
+	        })();
+	      } else {
+	        this.props.addHistory({
+	          author: this.props.author,
+	          body: newBody,
+	          matchFrac: gdg.matchFrac(),
+	          gitDiff: gdg.getGitDiff()
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'onAuthorClick',
 	    value: function onAuthorClick(author) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      return function (e) {
-	        _this2.props.updateAuthor(author);
+	        _this3.props.updateAuthor(author);
 	      };
 	    }
 	  }, {
@@ -29872,10 +29890,10 @@
 	  }, {
 	    key: 'setEditingTimeout',
 	    value: function setEditingTimeout() {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      window.timeoutHandle = setTimeout(function () {
-	        return _this3.setState({ isEditing: false });
+	        return _this4.setState({ isEditing: false });
 	      }, 3000);
 	    }
 	  }]);

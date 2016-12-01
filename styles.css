@@ -435,6 +435,24 @@ article a:hover {
   display: none;
 }
 
+.editor-save {
+  position: relative;
+}
+
+.no-changes {
+  color: darkred;
+  background: lightpink;
+  left: 30px;
+  border: 1px solid darkred;
+}
+
+.show-error {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  cursor: default;
+}
+
 /* BUTTONS */
 
 .btn {

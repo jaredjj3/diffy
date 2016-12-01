@@ -13,6 +13,7 @@ export default class extends React.Component {
 
   componentDidMount () {
     this.textEditor = document.getElementById('text-editor');
+    this.noChangeError = document.getElementById('no-change-error');
   }
 
   componentWillReceiveProps (nextProps) {
@@ -40,8 +41,9 @@ export default class extends React.Component {
             next<i className="material-icons">redo</i>
             <div className="tooltip">Unsaved changes will be lost</div>
           </li>
-          <li onClick={this.onSaveClick.bind(this)}>
+          <li className="editor-save" onClick={this.onSaveClick.bind(this)}>
             save<i className="material-icons golden">assignment_turned_in</i>
+            <div id="no-change-error" className="tooltip no-changes">No changes detected</div>
           </li>
         </ul>
         <div className="click-to-edit" onClick={this.onBodyClick.bind(this)}>
@@ -83,13 +85,21 @@ export default class extends React.Component {
     const oldBody = this.props.body;
     const newBody = this.state.body;
     const gdg = new GitDiffGenerator(oldBody, newBody);
-    this.props.addHistory({
-      author: this.props.author,
-      body: newBody,
-      matchFrac: gdg.matchFrac(),
-      gitDiff: gdg.getGitDiff()
-    });
-    console.log(window.store.getState().article.history);
+    if (gdg.matchFrac() === 0) {
+      const klass = this.noChangeError.className;
+      this.noChangeError.className += " show-error";
+      window.setTimeout(() => {
+        // hooray closures
+        this.noChangeError.className = klass;
+      }, 3000);
+    } else {
+      this.props.addHistory({
+        author: this.props.author,
+        body: newBody,
+        matchFrac: gdg.matchFrac(),
+        gitDiff: gdg.getGitDiff()
+      });
+    }
   }
 
   onAuthorClick (author) {
