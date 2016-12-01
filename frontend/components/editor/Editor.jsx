@@ -14,6 +14,12 @@ export default class extends React.Component {
   componentDidMount () {
     this.textEditor = document.getElementById('text-editor');
   }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      body: nextProps.body
+    });
+  }
   
   render () {
     return(

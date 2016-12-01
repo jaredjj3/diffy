@@ -29702,6 +29702,13 @@
 	      this.textEditor = document.getElementById('text-editor');
 	    }
 	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({
+	        body: nextProps.body
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
