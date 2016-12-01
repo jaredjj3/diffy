@@ -16,7 +16,7 @@ export default (state = _defaultState, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
     case UPDATE_AUTHOR:
-      nextState.author = action.author;
+      nextState.history[state.index].author = action.author;
       return nextState;
     case UPDATE_BODY:
       nextState.history[state.index].body = action.body;

@@ -22595,7 +22595,7 @@
 	  var nextState = Object.assign({}, state);
 	  switch (action.type) {
 	    case _articleActions.UPDATE_AUTHOR:
-	      nextState.author = action.author;
+	      nextState.history[state.index].author = action.author;
 	      return nextState;
 	    case _articleActions.UPDATE_BODY:
 	      nextState.history[state.index].body = action.body;
