@@ -24,12 +24,15 @@ export default class extends React.Component {
               <li onClick={this.onAuthorClick('John Smith')}>John Smith</li>
             </ul>
           </li>
-          <li onClick={this.onResetClick.bind(this)}>reset<i className="material-icons">restore</i></li>
-          <li>update<i className="material-icons golden">assignment_turned_in</i></li>
+          <li onClick={this.onPrevClick.bind(this)}>prev<i className="material-icons">undo</i></li>
+          <li onClick={this.onNextClick.bind(this)}>next<i className="material-icons">redo</i></li>
+          <li onClick={this.onUpdateClick.bind(this)}>
+            update<i className="material-icons golden">assignment_turned_in</i>
+          </li>
         </ul>
         <div className="click-to-edit" onClick={this.onBodyClick.bind(this)}>
           <h1>
-            Start <span className={this.state.isEditing ? 'editing' : 'not-editing'}>editing</span>, {this.props.author}. It's easy.
+            Start <span className={this.state.isEditing ? 'editing' : 'not-editing'}>editing</span>, {this.props.author}. It's easy. {this.props.indexStr}
           </h1>
           <textarea 
             id="text-editor" 
@@ -63,6 +66,7 @@ export default class extends React.Component {
 
   onUpdateClick (e) {
     e.stopPropagation();
+    this.props.generateGitDiff(this.props.body);
   }
 
   onAuthorClick (author) {
@@ -71,8 +75,12 @@ export default class extends React.Component {
     };
   }
 
-  onResetClick (e) {
-    this.props.resetArticle();
+  onPrevClick (e) {
+    this.props.decreaseIndex();
+  }
+
+  onNextClick (e) {
+    this.props.increaseIndex();
   }
 
   // helpers

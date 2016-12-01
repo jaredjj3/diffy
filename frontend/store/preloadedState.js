@@ -1,12 +1,14 @@
-import sampleBody from '../util/sampleBody';
+import * as b from '../util/sampleBody';
 
 const randomAuthor = () => Math.random() < 0.5 ? 'Jane Doe' : 'John Smith';
 
 export default {
   article: {
-    author: randomAuthor(),
-    body: sampleBody,
-    gitdiffs: [
+    index: 2,
+    history: [
+      { author: randomAuthor(), body: b.body1 },
+      { author: randomAuthor(), body: b.body2 },
+      { author: randomAuthor(), body: b.body3 }
     ]
   }
 };

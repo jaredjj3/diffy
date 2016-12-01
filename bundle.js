@@ -22579,6 +22579,10 @@
 	
 	var _articleActions = __webpack_require__(202);
 	
+	var _GitDiffGenerator = __webpack_require__(289);
+	
+	var _GitDiffGenerator2 = _interopRequireDefault(_GitDiffGenerator);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var _defaultState = Object.freeze(_preloadedState2.default.article);
@@ -22596,12 +22600,17 @@
 	    case _articleActions.UPDATE_BODY:
 	      nextState.body = action.body;
 	      return nextState;
-	    case _articleActions.RESET_ARTICLE:
-	      return _defaultState;
 	    case _articleActions.UPDATE_ARTICLE:
 	      return action.article;
 	    case _articleActions.GENERATE_GIT_DIFF:
-	
+	      // const gdg = new GitDiffGenerator(oldLines, newLines);
+	      // gdg.generate();
+	      return nextState;
+	    case _articleActions.DECREASE_INDEX:
+	      nextState.index -= nextState.index > 0 ? 1 : 0;
+	      return nextState;
+	    case _articleActions.INCREASE_INDEX:
+	      nextState.index += nextState.index < state.history.length - 1 ? 1 : 0;
 	      return nextState;
 	    default:
 	      return nextState;
@@ -22619,9 +22628,10 @@
 	});
 	var UPDATE_AUTHOR = exports.UPDATE_AUTHOR = 'UPDATE_AUTHOR';
 	var UPDATE_BODY = exports.UPDATE_BODY = 'UPDATE_BODY';
-	var RESET_ARTICLE = exports.RESET_ARTICLE = 'RESET_ARTICLE';
 	var UPDATE_ARTICLE = exports.UPDATE_ARTICLE = 'UPDATE_ARTICLE';
 	var GENERATE_GIT_DIFF = exports.GENERATE_GIT_DIFF = 'GENERATE_GIT_DIFF';
+	var DECREASE_INDEX = exports.DECREASE_INDEX = 'DECREASE_INDEX';
+	var INCREASE_INDEX = exports.INCREASE_INDEX = 'INCREASE_INDEX';
 	
 	var updateAuthor = exports.updateAuthor = function updateAuthor(author) {
 	  return {
@@ -22637,12 +22647,6 @@
 	  };
 	};
 	
-	var resetArticle = exports.resetArticle = function resetArticle() {
-	  return {
-	    type: RESET_ARTICLE
-	  };
-	};
-	
 	var updateArticle = exports.updateArticle = function updateArticle(article) {
 	  return {
 	    type: UPDATE_ARTICLE,
@@ -22654,6 +22658,18 @@
 	  return {
 	    type: GENERATE_GIT_DIFF,
 	    body: body
+	  };
+	};
+	
+	var decreaseIndex = exports.decreaseIndex = function decreaseIndex() {
+	  return {
+	    type: DECREASE_INDEX
+	  };
+	};
+	
+	var increaseIndex = exports.increaseIndex = function increaseIndex() {
+	  return {
+	    type: INCREASE_INDEX
 	  };
 	};
 
@@ -22683,9 +22699,9 @@
 	
 	var _sampleBody = __webpack_require__(205);
 	
-	var _sampleBody2 = _interopRequireDefault(_sampleBody);
+	var b = _interopRequireWildcard(_sampleBody);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var randomAuthor = function randomAuthor() {
 	  return Math.random() < 0.5 ? 'Jane Doe' : 'John Smith';
@@ -22693,9 +22709,8 @@
 	
 	exports.default = {
 	  article: {
-	    author: randomAuthor(),
-	    body: _sampleBody2.default,
-	    gitdiffs: []
+	    index: 2,
+	    history: [{ author: randomAuthor(), body: b.body1 }, { author: randomAuthor(), body: b.body2 }, { author: randomAuthor(), body: b.body3 }]
 	  }
 	};
 
@@ -22704,11 +22719,15 @@
 /***/ function(module, exports) {
 
 	"use strict";
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt ligula eget accumsan ultrices. Vestibulum et mi eget augue sodales auctor. Cras sit amet felis commodo, scelerisque leo eu, ornare neque. Donec consectetur tortor metus, pharetra fringilla nisl ultricies eu. Proin volutpat enim sit amet quam malesuada, a hendrerit ante ornare. Nunc lacinia massa eu sapien finibus, et vulputate libero ultricies. Praesent euismod elementum est, eu ornare nibh sollicitudin rutrum.\n\nPraesent molestie lectus non eleifend lobortis. Phasellus tristique libero at arcu faucibus condimentum. Suspendisse ornare nunc at tincidunt vehicula. Suspendisse fermentum ligula placerat est hendrerit, mollis lobortis quam mollis. Aliquam porttitor vitae neque sed mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor massa vel elit ullamcorper dapibus eget sed massa. Donec tempus congue arcu nec tristique. Aliquam erat volutpat. Etiam rutrum mauris vel orci posuere, id eleifend orci dapibus. Vivamus eu massa sed sem facilisis porta et eget ipsum.\n\nQuisque porttitor neque lacus, nec aliquet magna pellentesque non. Etiam eget dui at lacus mattis iaculis. Curabitur non elit non risus euismod pretium et quis urna. Suspendisse tempor interdum gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Nulla vulputate pharetra eros, ut aliquam magna semper vitae. Mauris nec sem facilisis, placerat eros non, rutrum mauris. Integer posuere arcu a ligula sodales pharetra. Sed fringilla quam vitae ligula vestibulum, ac gravida eros tempor. Nulla pellentesque tristique mauris eu molestie. Proin tempor finibus magna nec facilisis.";
+	var body1 = exports.body1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt ligula eget accumsan ultrices. Vestibulum et mi eget augue sodales auctor. Cras sit amet felis commodo, scelerisque leo eu, ornare neque. Donec consectetur tortor metus, pharetra fringilla nisl ultricies eu. Proin volutpat enim sit amet quam malesuada, a hendrerit ante ornare. Nunc lacinia massa eu sapien finibus, et vulputate libero ultricies. Praesent euismod elementum est, eu ornare nibh sollicitudin rutrum.\n\nPraesent molestie lectus non eleifend lobortis. Phasellus tristique libero at arcu faucibus condimentum. Suspendisse ornare nunc at tincidunt vehicula. Suspendisse fermentum ligula placerat est hendrerit, mollis lobortis quam mollis. Aliquam porttitor vitae neque sed mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor massa vel elit ullamcorper dapibus eget sed massa. Donec tempus congue arcu nec tristique. Aliquam erat volutpat. Etiam rutrum mauris vel orci posuere, id eleifend orci dapibus. Vivamus eu massa sed sem facilisis porta et eget ipsum.";
+	
+	var body2 = exports.body2 = "Donec tincidunt ligula eget accumsan ultrices. Vestibulum et mi eget augue sodales auctor. Cras sit amet felis commodo, scelerisque leo eu, ornare neque. Donec consectetur tortor metus, pharetra fringilla nisl ultricies eu. Proin volutpat enim sit amet quam malesuada, a hendrerit ante ornare. Nunc lacinia massa eu sapien finibus, et vulputate libero ultricies. Praesent euismod elementum est, eu ornare nibh sollicitudin rutrum.\n\nPhasellus tristique libero at arcu faucibus condimentum. Suspendisse ornare nunc at tincidunt vehicula. Suspendisse fermentum ligula placerat est hendrerit, mollis lobortis quam mollis. Aliquam porttitor vitae neque sed mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor massa vel elit ullamcorper dapibus eget sed massa. Donec tempus congue arcu nec tristique. Aliquam erat volutpat. Etiam rutrum mauris vel orci posuere, id eleifend orci dapibus. Vivamus eu massa sed sem facilisis porta et eget ipsum.\n\nQuisque porttitor neque lacus, nec aliquet magna pellentesque non. Etiam eget dui at lacus mattis iaculis. Curabitur non elit non risus euismod pretium et quis urna. Suspendisse tempor interdum gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Nulla vulputate pharetra eros, ut aliquam magna semper vitae. Mauris nec sem facilisis, placerat eros non, rutrum mauris. Integer posuere arcu a ligula sodales pharetra. Sed fringilla quam vitae ligula vestibulum, ac gravida eros tempor. Nulla pellentesque tristique mauris eu molestie. Proin tempor finibus magna nec facilisis.";
+	
+	var body3 = exports.body3 = "Donec tincidunt ligula eget accumsan ultrices. Vestibulum et mi eget augue sodales auctor. Cras sit amet felis commodo, scelerisque leo eu, ornare neque. Donec consectetur tortor metus, pharetra fringilla nisl ultricies eu. Proin volutpat enim sit amet quam malesuada, a hendrerit ante ornare. Nunc lacinia massa eu sapien finibus, et vulputate libero ultricies. Praesent euismod elementum est, eu ornare nibh sollicitudin rutrum.\n\nPhasellus tristique libero at arcu faucibus condimentum. Suspendisse ornare nunc at tincidunt vehicula. Suspendisse fermentum ligula placerat est hendrerit, mollis lobortis quam mollis. Aliquam porttitor vitae neque sed mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor massa vel elit ullamcorper dapibus eget sed massa. Donec tempus congue arcu nec tristique. Aliquam erat volutpat. Etiam rutrum mauris vel orci posuere, id eleifend orci dapibus. Vivamus eu massa sed sem facilisis porta et eget ipsum.\n\nQuisque porttitor neque lacus, nec aliquet magna pellentesque non. Etiam eget dui at lacus mattis iaculis. Curabitur non elit non risus euismod pretium et quis urna. Suspendisse tempor interdum gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Nulla vulputate pharetra eros, ut aliquam magna semper vitae. Mauris nec sem facilisis, placerat eros non, rutrum mauris. Integer posuere arcu a ligula sodales pharetra. Sed fringilla quam vitae ligula vestibulum, ac gravida eros tempor. Nulla pellentesque tristique mauris eu molestie. Proin tempor finibus magna nec facilisis.\n\nSuspendisse in luctus odio. Nam vulputate venenatis lacus eget rhoncus. Vestibulum convallis diam ut augue tincidunt, et tincidunt libero elementum. Maecenas pharetra enim ac metus feugiat, eget fermentum lectus ornare. Cras porttitor ut sem vitae pellentesque. Donec sed ex velit. Mauris risus dolor, ultrices nec nibh sit amet, dapibus mattis sapien. Phasellus at mattis nisi. Quisque nec est lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec sit amet ex ligula. Sed sed ipsum interdum erat lobortis venenatis. Donec vestibulum risus mattis egestas rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque sed ullamcorper enim. Nunc convallis est tincidunt, vehicula tellus eu, euismod eros.";
 
 /***/ },
 /* 206 */
@@ -29413,9 +29432,12 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
+	  var index = state.article.index;
+	  var article = state.article.history[index];
 	  return {
-	    body: state.article.body,
-	    author: state.article.author
+	    body: article.body,
+	    author: article.author,
+	    indexStr: '( ' + (index + 1) + ' / ' + state.article.history.length + ' )'
 	  };
 	};
 	
@@ -29427,8 +29449,14 @@
 	    updateBody: function updateBody(body) {
 	      return dispatch((0, _articleActions.updateBody)(body));
 	    },
-	    resetArticle: function resetArticle() {
-	      return dispatch((0, _articleActions.resetArticle)());
+	    decreaseIndex: function decreaseIndex() {
+	      return dispatch((0, _articleActions.decreaseIndex)());
+	    },
+	    increaseIndex: function increaseIndex() {
+	      return dispatch((0, _articleActions.increaseIndex)());
+	    },
+	    generateGitDiff: function generateGitDiff(body) {
+	      return dispatch((0, _articleActions.generateGitDiff)(body));
 	    }
 	  };
 	};
@@ -29513,17 +29541,27 @@
 	          ),
 	          _react2.default.createElement(
 	            'li',
-	            { onClick: this.onResetClick.bind(this) },
-	            'reset',
+	            { onClick: this.onPrevClick.bind(this) },
+	            'prev',
 	            _react2.default.createElement(
 	              'i',
 	              { className: 'material-icons' },
-	              'restore'
+	              'undo'
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'li',
-	            null,
+	            { onClick: this.onNextClick.bind(this) },
+	            'next',
+	            _react2.default.createElement(
+	              'i',
+	              { className: 'material-icons' },
+	              'redo'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            { onClick: this.onUpdateClick.bind(this) },
 	            'update',
 	            _react2.default.createElement(
 	              'i',
@@ -29546,7 +29584,8 @@
 	            ),
 	            ', ',
 	            this.props.author,
-	            '. It\'s easy.'
+	            '. It\'s easy. ',
+	            this.props.indexStr
 	          ),
 	          _react2.default.createElement('textarea', {
 	            id: 'text-editor',
@@ -29583,6 +29622,7 @@
 	    key: 'onUpdateClick',
 	    value: function onUpdateClick(e) {
 	      e.stopPropagation();
+	      this.props.generateGitDiff(this.props.body);
 	    }
 	  }, {
 	    key: 'onAuthorClick',
@@ -29594,9 +29634,14 @@
 	      };
 	    }
 	  }, {
-	    key: 'onResetClick',
-	    value: function onResetClick(e) {
-	      this.props.resetArticle();
+	    key: 'onPrevClick',
+	    value: function onPrevClick(e) {
+	      this.props.decreaseIndex();
+	    }
+	  }, {
+	    key: 'onNextClick',
+	    value: function onNextClick(e) {
+	      this.props.increaseIndex();
 	    }
 	
 	    // helpers
@@ -29853,6 +29898,148 @@
 	  return _class;
 	}(_react2.default.Component);
 	
+	exports.default = _class;
+
+/***/ },
+/* 289 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var OLD = 'OLD';
+	var NEW = 'NEW';
+	
+	var _class = function () {
+	  // old and new are bodies, which are just strings
+	  function _class(oldLines, newLines) {
+	    _classCallCheck(this, _class);
+	
+	    this.oldLines = oldLines;
+	    this.newLines = newLines;
+	  }
+	
+	  _createClass(_class, [{
+	    key: 'generate',
+	    value: function generate() {
+	      this.assignByLength();
+	      var longer = this.longer,
+	          shorter = this.shorter;
+	
+	      for (var i = 0; i < longer.length; i++) {
+	        var str1 = longer[i];
+	        var str2 = shorter[i];
+	        console.log(this.compare(str1, str2));
+	      }
+	    }
+	
+	    // assigns this.longer and this.shorter based on
+	    // how many lines this.oldLines and this.newLines has
+	
+	  }, {
+	    key: 'assignByLength',
+	    value: function assignByLength() {
+	      var oldLength = Object.keys(this.oldLines);
+	      var newLength = Object.keys(this.newLines);
+	      if (oldLength > newLength) {
+	        this.longer = {
+	          lines: this.oldLines,
+	          length: oldLength,
+	          type: OLD
+	        };
+	        this.shorter = {
+	          lines: this.newLines,
+	          length: newLength,
+	          type: NEW
+	        };
+	      } else {
+	        this.longer = {
+	          lines: this.newLines,
+	          length: newLength,
+	          type: NEW
+	        };
+	        this.shorter = {
+	          lines: this.newLines,
+	          length: oldLength,
+	          type: OLD
+	        };
+	      }
+	    }
+	
+	    // input is two strings, output is an array of objects
+	    // that describe the git differences of each output 
+	
+	  }, {
+	    key: 'compare',
+	    value: function compare(str1, str2) {
+	      if (str1 === str2) {
+	        return [];
+	      }
+	      return this.matchPercentage(str1, str2);
+	    }
+	
+	    // input is two strings, output is a float between 0 and 1
+	    // shows the match percentage between two strings, relative
+	    // to the longer string
+	
+	  }, {
+	    key: 'matchPercentage',
+	    value: function matchPercentage(str1, str2) {
+	      if (str1 === str2) {
+	        return 1;
+	      }
+	      var freq1 = this.frequency(str1);
+	      var freq2 = this.frequency(str2);
+	      var longer = void 0,
+	          shorter = void 0;
+	      if (freq1.total > freq2.total) {
+	        longer = freq1;
+	        shorter = freq2;
+	      } else {
+	        longer = freq2;
+	        shorter = freq1;
+	      }
+	      var words = Object.keys(longer);
+	      var discrepancies = 0;
+	      words.forEach(function (word) {
+	        var shorterWord = word in shorter ? shorter[word] : 0;
+	        discrepancies += longer[word] - shorterWord;
+	      });
+	      return discrepancies / longer.total;
+	    }
+	
+	    // input is a string, output is a object whose keys are words
+	    // and the corresponding value is the frequency
+	
+	  }, {
+	    key: 'frequency',
+	    value: function frequency(str) {
+	      var words = str.split(" ");
+	      var result = {};
+	      result.total = 0;
+	      for (var i = 0; i < words.length; i++) {
+	        var word = words[i];
+	        if (word in result) {
+	          result[word]++;
+	        } else {
+	          result[word] = 1;
+	        }
+	        result.total++;
+	      }
+	      return result;
+	    }
+	  }]);
+
+	  return _class;
+	}();
+
 	exports.default = _class;
 
 /***/ }

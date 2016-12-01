@@ -3,18 +3,27 @@ import Editor from './Editor';
 import { 
   updateAuthor,
   updateBody,
-  resetArticle 
+  increaseIndex,
+  decreaseIndex,
+  generateGitDiff 
 } from '../../actions/articleActions';
 
-const mapStateToProps = state => ({
-  body: state.article.body,
-  author: state.article.author
-});
+const mapStateToProps = state => {
+  const index = state.article.index;
+  const article = state.article.history[index];
+  return {
+    body: article.body,
+    author: article.author,
+    indexStr: `( ${index + 1} / ${state.article.history.length} )`
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   updateAuthor: author => dispatch(updateAuthor(author)),
   updateBody: body => dispatch(updateBody(body)),
-  resetArticle: () => dispatch(resetArticle())
+  decreaseIndex: () => dispatch(decreaseIndex()),
+  increaseIndex: () => dispatch(increaseIndex()),
+  generateGitDiff: body => dispatch(generateGitDiff(body))
 });
 
 export default connect(
