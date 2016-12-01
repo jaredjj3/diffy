@@ -22754,13 +22754,12 @@
 	      var longer = this.longer,
 	          shorter = this.shorter;
 	
-	      var percentages = [];
+	      var diffs = [];
 	      for (var i = 0; i < longer.length; i++) {
 	        var str1 = longer.lines[i];
 	        var str2 = shorter.lines[i] ? shorter.lines[i] : "";
-	        this.compare(str1, str2);
+	        diffs.push(this.compare(str1, str2));
 	      }
-	      console.log(this.difference());
 	    }
 	
 	    // assigns this.longer and this.shorter based on
@@ -22803,8 +22802,9 @@
 	    key: 'compare',
 	    value: function compare(str1, str2) {
 	      if (str1 === str2) {
-	        return [];
+	        return { changed: false };
 	      }
+	      var result = { changed: true, changes: [] };
 	    }
 	
 	    // input is two strings, output is a float between 0 and 1
@@ -22812,8 +22812,8 @@
 	    // to the longer string
 	
 	  }, {
-	    key: 'difference',
-	    value: function difference() {
+	    key: 'matchPercentage',
+	    value: function matchPercentage() {
 	      var freq1 = this.frequency(this.oldLines.join(" "));
 	      var freq2 = this.frequency(this.newLines.join(" "));
 	      var longer = void 0,
@@ -29586,7 +29586,7 @@
 	  return {
 	    body: article.body,
 	    author: article.author,
-	    indexStr: '( ' + (index + 1) + ' / ' + state.article.history.length + ' )'
+	    indexStr: '(version ' + (index + 1) + ' / ' + state.article.history.length + ')'
 	  };
 	};
 	

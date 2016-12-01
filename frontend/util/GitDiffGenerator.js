@@ -11,13 +11,12 @@ export default class {
   generate () {
     this.assignByLength();
     const { longer, shorter } = this;
-    const percentages = [];
+    const diffs = [];
     for (let i = 0; i < longer.length; i++) {
       const str1 = longer.lines[i];
       const str2 = shorter.lines[i] ? shorter.lines[i] : "";
-      this.compare(str1, str2);
+      diffs.push(this.compare(str1, str2));
     }
-    console.log(this.difference());
   }
 
   // assigns this.longer and this.shorter based on
@@ -54,14 +53,16 @@ export default class {
   // that describe the git differences of each output 
   compare (str1, str2) {
     if (str1 === str2) {
-      return [];
+      return { changed: false };
     }
+    const result = { changed: true, changes: [] };
+    
   }
 
   // input is two strings, output is a float between 0 and 1
   // shows the match percentage between two strings, relative
   // to the longer string
-  difference () {
+  matchPercentage () {
     const freq1 = this.frequency(this.oldLines.join(" "));
     const freq2 = this.frequency(this.newLines.join(" "));
     let longer, shorter;

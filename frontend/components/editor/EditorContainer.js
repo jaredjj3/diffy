@@ -14,7 +14,7 @@ const mapStateToProps = state => {
   return {
     body: article.body,
     author: article.author,
-    indexStr: `( ${index + 1} / ${state.article.history.length} )`
+    indexStr: `(version ${index + 1} / ${state.article.history.length})`
   };
 };
 
