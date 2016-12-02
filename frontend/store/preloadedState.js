@@ -13,7 +13,7 @@ const gitDiff = (prevBody, nextBody) => {
 
 export default {
   article: {
-    index: 2,
+    index: 3,
     history: [
       { 
         author: randomAuthor(), 
@@ -32,6 +32,12 @@ export default {
         body: b.body3, 
         matchFrac: matchFrac(b.body2, b.body3),
         diffs: gitDiff(b.body2, b.body3)
+      },
+      {
+        author: randomAuthor(),
+        body: b.body4,
+        matchFrac: matchFrac(b.body3, b.body4),
+        diffs: gitDiff(b.body3, b.body4)
       }
     ]
   }

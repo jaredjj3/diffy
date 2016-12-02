@@ -22656,7 +22656,7 @@
 	
 	exports.default = {
 	  article: {
-	    index: 2,
+	    index: 3,
 	    history: [{
 	      author: randomAuthor(),
 	      body: b.body1,
@@ -22672,6 +22672,11 @@
 	      body: b.body3,
 	      matchFrac: matchFrac(b.body2, b.body3),
 	      diffs: gitDiff(b.body2, b.body3)
+	    }, {
+	      author: randomAuthor(),
+	      body: b.body4,
+	      matchFrac: matchFrac(b.body3, b.body4),
+	      diffs: gitDiff(b.body3, b.body4)
 	    }]
 	  }
 	};
@@ -22685,11 +22690,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var body1 = exports.body1 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll discuss which framework I would use and why. Next, I'll talk about the general schema.";
+	var body1 = exports.body1 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll discuss what qualities the ideal framework should have. Next, I'll talk about the general schema.";
 	
-	var body2 = exports.body2 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll discuss what qualities the ideal framework should have. Next, I'll talk about the general schema. Finally, I'll summarize and talk about a few extra considerations.\n\nFirst, let's talk ";
+	var body2 = exports.body2 = "Hello, world!\n\nWatch this paragraph dissapear in Version 3. :)\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll talk about the general schema and backend setup. Then, I'll talk about a few extra considerations.";
 	
-	var body3 = exports.body3 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it.  Finally, I'll summarize and talk about any extra considerations.\n\nFirst, let's talk ";
+	var body3 = exports.body3 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll talk about the general schema and backend setup. Then, I'll talk about a few extra considerations.\n\nThe schema should at least have authors and articles tables. The authors model would be responsible for handling authentication and preventing unauthorized access to certain routes. The articles model will have more logic concerning the format of each article, but there will be extra authentication to increase security.";
+	
+	var body4 = exports.body4 = "Hello, Authorea!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll talk about the general schema and backend setup. Then, I'll talk about a few extra considerations.\n\nThe schema should at least have authors and articles tables. The authors model would be responsible for handling authentication and preventing unauthorized access to certain routes. The articles model will have more logic concerning the format of each article, but there will be extra authentication to increase security.\n\nA major consideration for backend design should be the framework selection. There should be adequate support for images and BLOBs (Binary Large Objects), as figures are an essential element of research papers.\n\nUntil then, have a good day!\nJared";
 
 /***/ },
 /* 204 */

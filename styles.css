@@ -633,6 +633,10 @@ article a:hover {
   background: pink;
 }
 
+.diffy-list .none {
+  background: rgb(213, 213, 213);
+}
+
 .diffy-list .li-removed {
   cursor: pointer;
 }
