@@ -22,11 +22,13 @@ export default class extends React.Component {
       }
       const id = `vis-${idx}`;
       return(
-        <li key={idx} onClick={this.onRemovedClick(id)}>
+        <li id={`diff-indicator-${idx}`} className={`li-${klass}`} key={idx} onClick={this.onRemovedClick(idx)}>
           <div className={`diff-indicator ${klass}`}>
             {diff.type === REMOVED ? <i id={id} className="material-icons">visibility</i> : ''}
           </div>
-          {diff.lines}
+          <div className="diff-lines">
+            {diff.lines}
+          </div>
         </li>
       );
     });
@@ -42,13 +44,16 @@ export default class extends React.Component {
 
   // event handler
 
-  onRemovedClick (id) {
+  onRemovedClick (idx) {
     return e => {
-      const el = document.getElementById(id);
-      if (el.innerHTML === 'visibility') {
-        el.innerHTML = 'visibility_off';
+      const iconEl = document.getElementById(`vis-${idx}`);
+      const liEl = document.getElementById(`diff-indicator-${idx}`);
+      if (iconEl.innerHTML === 'visibility') {
+        iconEl.innerHTML = 'visibility_off';
+        liEl.className += ' shrink';
       } else {
-        el.innerHTML = 'visibility';
+        iconEl.innerHTML = 'visibility';
+        liEl.className = liEl.className.replace(' shrink', '');
       }
     };
   }

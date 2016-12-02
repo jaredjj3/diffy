@@ -30197,7 +30197,7 @@
 	        var id = 'vis-' + idx;
 	        return _react2.default.createElement(
 	          'li',
-	          { key: idx, onClick: _this2.onRemovedClick(id) },
+	          { id: 'diff-indicator-' + idx, className: 'li-' + klass, key: idx, onClick: _this2.onRemovedClick(idx) },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'diff-indicator ' + klass },
@@ -30207,7 +30207,11 @@
 	              'visibility'
 	            ) : ''
 	          ),
-	          diff.lines
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'diff-lines' },
+	            diff.lines
+	          )
 	        );
 	      });
 	      return _react2.default.createElement(
@@ -30230,13 +30234,16 @@
 	
 	  }, {
 	    key: 'onRemovedClick',
-	    value: function onRemovedClick(id) {
+	    value: function onRemovedClick(idx) {
 	      return function (e) {
-	        var el = document.getElementById(id);
-	        if (el.innerHTML === 'visibility') {
-	          el.innerHTML = 'visibility_off';
+	        var iconEl = document.getElementById('vis-' + idx);
+	        var liEl = document.getElementById('diff-indicator-' + idx);
+	        if (iconEl.innerHTML === 'visibility') {
+	          iconEl.innerHTML = 'visibility_off';
+	          liEl.className += ' shrink';
 	        } else {
-	          el.innerHTML = 'visibility';
+	          iconEl.innerHTML = 'visibility';
+	          liEl.className = liEl.className.replace(' shrink', '');
 	        }
 	      };
 	    }

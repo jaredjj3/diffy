@@ -578,14 +578,14 @@ article a:hover {
 }
 
 .hidden {
-  transition: width 2s;
-  -webkit-transition: width 0.5s; /* Safari 3.1 to 6.0 */
+  transition: width 0.5s;
+  -webkit-transition: width 0.5s;
   width: 0;
 }
 
 .show-container .show {
-  transition: width 2s;
-  -webkit-transition: width 0.5s; /* Safari 3.1 to 6.0 */
+  transition: width 0.5s;
+  -webkit-transition: width 0.5s;
   width: 300px;
 }
 
@@ -614,6 +614,7 @@ article a:hover {
 .diffy-list li {
   padding: 10px 20px;
   display: flex;
+  cursor: default;
 }
 
 .diff-indicator i {
@@ -626,17 +627,33 @@ article a:hover {
 
 .diffy-list .removed {
   background: pink;
+}
+
+.diffy-list .li-removed {
   cursor: pointer;
 }
 
-.diffy-list .removed:hover {
-  background: lightpink;
+.diffy-list > li:hover .removed {
+  background: rgb(249, 144, 144);
 }
 
 .diff-indicator {
-  min-width: 18px;
+  min-width: 20px;
   margin-right: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.shrink .diff-indicator {
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  height: 20px;
+}
+
+.shrink .diff-lines {
+  color: transparent;
+  display: none;
 }
