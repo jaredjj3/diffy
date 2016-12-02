@@ -19,25 +19,29 @@ export default {
         author: randomAuthor(), 
         body: b.body1, 
         matchFrac: null, 
-        diffs: gitDiff(b.body1, b.body1)
+        diffs: gitDiff(b.body1, b.body1),
+        previousVersion: null
       },
       { 
         author: randomAuthor(), 
         body: b.body2, 
         matchFrac: matchFrac(b.body1, b.body2),
-        diffs: gitDiff(b.body1, b.body2) 
+        diffs: gitDiff(b.body1, b.body2),
+        previousVersion: 1 
       },
       { 
         author: randomAuthor(), 
         body: b.body3, 
         matchFrac: matchFrac(b.body2, b.body3),
-        diffs: gitDiff(b.body2, b.body3)
+        diffs: gitDiff(b.body2, b.body3),
+        previousVersion: 2
       },
       {
         author: randomAuthor(),
         body: b.body4,
         matchFrac: matchFrac(b.body3, b.body4),
-        diffs: gitDiff(b.body3, b.body4)
+        diffs: gitDiff(b.body3, b.body4),
+        previousVersion: 3
       }
     ]
   }

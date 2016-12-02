@@ -15,16 +15,20 @@ export default class extends React.Component {
   }
 
   render () {
-    const historyListItems = this.props.history.map((histObj, idx) => (
-      <li key={idx} className={idx === this.props.index ? 'selected' : ''} onClick={this.onVersionClick(idx)}>
-        <h1>Version {idx + 1}</h1>
-        <h2>by {histObj.author}</h2>
-        <h3>
-          {histObj.matchFrac ? `${Math.floor(histObj.matchFrac * 100)}% difference` : 'Initial'}
-        </h3>
-        <a href="#/editor">edit</a>
-      </li>
-    ));
+    const historyListItems = this.props.history.map((histObj, idx) => {
+      const { previousVersion } = histObj;
+      return(
+        <li key={idx} className={idx === this.props.index ? 'selected' : ''} onClick={this.onVersionClick(idx)}>
+          <h1>Version {idx + 1}</h1>
+          <h2>{previousVersion ? `(from Version ${previousVersion})` : ''}</h2>
+          <h2>by {histObj.author}</h2>
+          <h3>
+            {histObj.matchFrac ? `${Math.floor(histObj.matchFrac * 100)}% difference` : 'Initial'}
+          </h3>
+          <a href="#/editor">edit</a>
+        </li>
+      );
+    });
     const { expanded } = this.state;
     return(
       <div id="timeline-container" className="timeline-container">

@@ -30,7 +30,7 @@ export default (state = _defaultState, action) => {
       return nextState;
     case ADD_HISTORY:
       nextState.index = nextState.history.length;
-      nextState.history.push(action.history);    
+      nextState.history.push(action.history);
       return nextState;
     case GOTO_INDEX:
       nextState.index = action.index;

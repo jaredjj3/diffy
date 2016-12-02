@@ -11,6 +11,7 @@ const mapStateToProps = state => {
   const index = state.article.index;
   const article = state.article.history[index];
   return {
+    index,
     body: article.body,
     author: article.author,
     history: state.article.history,

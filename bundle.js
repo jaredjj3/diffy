@@ -22577,9 +22577,9 @@
 	
 	var _preloadedState2 = _interopRequireDefault(_preloadedState);
 	
-	var _articleActions = __webpack_require__(204);
+	var _articleActions = __webpack_require__(205);
 	
-	var _GitDiffGenerator = __webpack_require__(205);
+	var _GitDiffGenerator = __webpack_require__(204);
 	
 	var _GitDiffGenerator2 = _interopRequireDefault(_GitDiffGenerator);
 	
@@ -22634,7 +22634,7 @@
 	
 	var b = _interopRequireWildcard(_sampleBody);
 	
-	var _GitDiffGenerator = __webpack_require__(205);
+	var _GitDiffGenerator = __webpack_require__(204);
 	
 	var _GitDiffGenerator2 = _interopRequireDefault(_GitDiffGenerator);
 	
@@ -22661,22 +22661,26 @@
 	      author: randomAuthor(),
 	      body: b.body1,
 	      matchFrac: null,
-	      diffs: gitDiff(b.body1, b.body1)
+	      diffs: gitDiff(b.body1, b.body1),
+	      previousVersion: null
 	    }, {
 	      author: randomAuthor(),
 	      body: b.body2,
 	      matchFrac: matchFrac(b.body1, b.body2),
-	      diffs: gitDiff(b.body1, b.body2)
+	      diffs: gitDiff(b.body1, b.body2),
+	      previousVersion: 1
 	    }, {
 	      author: randomAuthor(),
 	      body: b.body3,
 	      matchFrac: matchFrac(b.body2, b.body3),
-	      diffs: gitDiff(b.body2, b.body3)
+	      diffs: gitDiff(b.body2, b.body3),
+	      previousVersion: 2
 	    }, {
 	      author: randomAuthor(),
 	      body: b.body4,
 	      matchFrac: matchFrac(b.body3, b.body4),
-	      diffs: gitDiff(b.body3, b.body4)
+	      diffs: gitDiff(b.body3, b.body4),
+	      previousVersion: 3
 	    }]
 	  }
 	};
@@ -22696,66 +22700,10 @@
 	
 	var body3 = exports.body3 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll talk about the general schema and backend setup. Then, I'll talk about a few extra considerations.\n\nThe schema should at least have authors and articles tables. The authors model would be responsible for handling authentication and preventing unauthorized access to certain routes. The articles model will have more logic concerning the format of each article, but there will be extra authentication to increase security.";
 	
-	var body4 = exports.body4 = "Hello, Authorea!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll talk about the general schema and backend setup. Then, I'll talk about a few extra considerations.\n\nThe schema should at least have authors and articles tables. The authors model would be responsible for handling authentication and preventing unauthorized access to certain routes. The articles model will have more logic concerning the format of each article, but there will be extra authentication to increase security.\n\nA major consideration for backend design should be the framework selection. There should be adequate support for images and BLOBs (Binary Large Objects), as figures are an essential element of research papers.\n\nUntil then, have a good day!\nJared";
+	var body4 = exports.body4 = "Hello, Authorea!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll talk about the general schema and backend setup. Then, I'll talk about a few extra considerations.\n\nThe schema should at least have authors and articles tables. The authors model would be responsible for handling authentication and preventing unauthorized access to certain routes. The articles model will have more logic concerning the format of each article, but there will be extra authentication to increase security.\n\nA major consideration for backend design should be the framework selection. There should be adequate support for images and BLOBs (Binary Large Objects), as figures are an essential element of research papers.\n\nUntil then, have a good day!\n\nJared";
 
 /***/ },
 /* 204 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var UPDATE_BODY = exports.UPDATE_BODY = 'UPDATE_BODY';
-	var UPDATE_ARTICLE = exports.UPDATE_ARTICLE = 'UPDATE_ARTICLE';
-	var DECREASE_INDEX = exports.DECREASE_INDEX = 'DECREASE_INDEX';
-	var INCREASE_INDEX = exports.INCREASE_INDEX = 'INCREASE_INDEX';
-	var GOTO_INDEX = exports.GOTO_INDEX = 'GOTO_INDEX';
-	var ADD_HISTORY = exports.ADD_HISTORY = 'ADD_HISTORY';
-	
-	var updateBody = exports.updateBody = function updateBody(body) {
-	  return {
-	    type: UPDATE_BODY,
-	    body: body
-	  };
-	};
-	
-	var updateArticle = exports.updateArticle = function updateArticle(article) {
-	  return {
-	    type: UPDATE_ARTICLE,
-	    article: article
-	  };
-	};
-	
-	var decreaseIndex = exports.decreaseIndex = function decreaseIndex() {
-	  return {
-	    type: DECREASE_INDEX
-	  };
-	};
-	
-	var increaseIndex = exports.increaseIndex = function increaseIndex() {
-	  return {
-	    type: INCREASE_INDEX
-	  };
-	};
-	
-	var addHistory = exports.addHistory = function addHistory(history) {
-	  return {
-	    type: ADD_HISTORY,
-	    history: history
-	  };
-	};
-	
-	var gotoIndex = exports.gotoIndex = function gotoIndex(index) {
-	  return {
-	    type: GOTO_INDEX,
-	    index: index
-	  };
-	};
-
-/***/ },
-/* 205 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22910,6 +22858,62 @@
 	}();
 
 	exports.default = _class;
+
+/***/ },
+/* 205 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var UPDATE_BODY = exports.UPDATE_BODY = 'UPDATE_BODY';
+	var UPDATE_ARTICLE = exports.UPDATE_ARTICLE = 'UPDATE_ARTICLE';
+	var DECREASE_INDEX = exports.DECREASE_INDEX = 'DECREASE_INDEX';
+	var INCREASE_INDEX = exports.INCREASE_INDEX = 'INCREASE_INDEX';
+	var GOTO_INDEX = exports.GOTO_INDEX = 'GOTO_INDEX';
+	var ADD_HISTORY = exports.ADD_HISTORY = 'ADD_HISTORY';
+	
+	var updateBody = exports.updateBody = function updateBody(body) {
+	  return {
+	    type: UPDATE_BODY,
+	    body: body
+	  };
+	};
+	
+	var updateArticle = exports.updateArticle = function updateArticle(article) {
+	  return {
+	    type: UPDATE_ARTICLE,
+	    article: article
+	  };
+	};
+	
+	var decreaseIndex = exports.decreaseIndex = function decreaseIndex() {
+	  return {
+	    type: DECREASE_INDEX
+	  };
+	};
+	
+	var increaseIndex = exports.increaseIndex = function increaseIndex() {
+	  return {
+	    type: INCREASE_INDEX
+	  };
+	};
+	
+	var addHistory = exports.addHistory = function addHistory(history) {
+	  return {
+	    type: ADD_HISTORY,
+	    history: history
+	  };
+	};
+	
+	var gotoIndex = exports.gotoIndex = function gotoIndex(index) {
+	  return {
+	    type: GOTO_INDEX,
+	    index: index
+	  };
+	};
 
 /***/ },
 /* 206 */
@@ -29623,7 +29627,7 @@
 	
 	var _Editor2 = _interopRequireDefault(_Editor);
 	
-	var _articleActions = __webpack_require__(204);
+	var _articleActions = __webpack_require__(205);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29631,6 +29635,7 @@
 	  var index = state.article.index;
 	  var article = state.article.history[index];
 	  return {
+	    index: index,
 	    body: article.body,
 	    author: article.author,
 	    history: state.article.history,
@@ -29673,7 +29678,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _GitDiffGenerator = __webpack_require__(205);
+	var _GitDiffGenerator = __webpack_require__(204);
 	
 	var _GitDiffGenerator2 = _interopRequireDefault(_GitDiffGenerator);
 	
@@ -29876,7 +29881,8 @@
 	            author: _this2.state.author,
 	            body: newBody,
 	            matchFrac: gdg.matchFrac(),
-	            diffs: gdg.getGitDiff()
+	            diffs: gdg.getGitDiff(),
+	            previousVersion: _this2.props.index + 1
 	          });
 	        })();
 	      }
@@ -29937,7 +29943,7 @@
 	
 	var _Show2 = _interopRequireDefault(_Show);
 	
-	var _articleActions = __webpack_require__(204);
+	var _articleActions = __webpack_require__(205);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29980,7 +29986,7 @@
 	
 	var _Timeline2 = _interopRequireDefault(_Timeline);
 	
-	var _Diffy = __webpack_require__(289);
+	var _Diffy = __webpack_require__(288);
 	
 	var _Diffy2 = _interopRequireDefault(_Diffy);
 	
@@ -30070,6 +30076,8 @@
 	      var _this2 = this;
 	
 	      var historyListItems = this.props.history.map(function (histObj, idx) {
+	        var previousVersion = histObj.previousVersion;
+	
 	        return _react2.default.createElement(
 	          'li',
 	          { key: idx, className: idx === _this2.props.index ? 'selected' : '', onClick: _this2.onVersionClick(idx) },
@@ -30078,6 +30086,11 @@
 	            null,
 	            'Version ',
 	            idx + 1
+	          ),
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            previousVersion ? '(from Version ' + previousVersion + ')' : ''
 	          ),
 	          _react2.default.createElement(
 	            'h2',
@@ -30148,8 +30161,7 @@
 	exports.default = _class;
 
 /***/ },
-/* 288 */,
-/* 289 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30164,7 +30176,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _GitDiffGenerator = __webpack_require__(205);
+	var _GitDiffGenerator = __webpack_require__(204);
 	
 	var _reactRouter = __webpack_require__(217);
 	
