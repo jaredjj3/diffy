@@ -105,7 +105,7 @@ export default class extends React.Component {
         author: this.state.author,
         body: newBody,
         matchFrac: gdg.matchFrac(),
-        gitDiff: gdg.getGitDiff()
+        diffs: gdg.getGitDiff()
       });
     }
   }

@@ -594,5 +594,49 @@ article a:hover {
 .diffy-container {
   min-width: 600px;
   width: 900px;
+  height: 600px;
   padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.diffy-container h1 {
+  font-size: 20px;
+  align-self: center;
+}
+
+.diffy-list {
+  margin-top: 10px;
+  font-size: 16px;
+  overflow-y: scroll;
+}
+
+.diffy-list li {
+  padding: 10px 20px;
+  display: flex;
+}
+
+.diff-indicator i {
+  font-size: 14px;
+}
+
+.diffy-list .added {
+  background: lightgreen;
+}
+
+.diffy-list .removed {
+  background: pink;
+  cursor: pointer;
+}
+
+.diffy-list .removed:hover {
+  background: lightpink;
+}
+
+.diff-indicator {
+  min-width: 18px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

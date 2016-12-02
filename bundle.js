@@ -22661,17 +22661,17 @@
 	      author: randomAuthor(),
 	      body: b.body1,
 	      matchFrac: null,
-	      gitDiff: gitDiff(b.body1, b.body2)
+	      diffs: gitDiff(b.body1, b.body2)
 	    }, {
 	      author: randomAuthor(),
 	      body: b.body2,
 	      matchFrac: matchFrac(b.body1, b.body2),
-	      gitDiff: gitDiff(b.body1, b.body2)
+	      diffs: gitDiff(b.body1, b.body2)
 	    }, {
 	      author: randomAuthor(),
 	      body: b.body3,
 	      matchFrac: matchFrac(b.body2, b.body3),
-	      gitDiff: gitDiff(b.body2, b.body3)
+	      diffs: gitDiff(b.body2, b.body3)
 	    }]
 	  }
 	};
@@ -29869,7 +29869,7 @@
 	            author: _this2.state.author,
 	            body: newBody,
 	            matchFrac: gdg.matchFrac(),
-	            gitDiff: gdg.getGitDiff()
+	            diffs: gdg.getGitDiff()
 	          });
 	        })();
 	      }
@@ -30145,7 +30145,7 @@
 /* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30156,6 +30156,8 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _GitDiffGenerator = __webpack_require__(205);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30175,18 +30177,68 @@
 	  }
 	
 	  _createClass(_class, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
+	      var diffyListItems = this.props.article.diffs.map(function (diff, idx) {
+	        var klass = void 0;
+	        switch (diff.type) {
+	          case _GitDiffGenerator.NONE:
+	            klass = 'none';
+	            break;
+	          case _GitDiffGenerator.ADDED:
+	            klass = 'added';
+	            break;
+	          case _GitDiffGenerator.REMOVED:
+	            klass = 'removed';
+	            break;
+	        }
+	        var id = 'vis-' + idx;
+	        return _react2.default.createElement(
+	          'li',
+	          { key: idx, onClick: _this2.onRemovedClick(id) },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'diff-indicator ' + klass },
+	            diff.type === _GitDiffGenerator.REMOVED ? _react2.default.createElement(
+	              'i',
+	              { id: id, className: 'material-icons' },
+	              'visibility'
+	            ) : ''
+	          ),
+	          diff.lines
+	        );
+	      });
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "diffy-container" },
+	        'div',
+	        { className: 'diffy-container' },
 	        _react2.default.createElement(
-	          "h1",
+	          'h1',
 	          null,
-	          "Version " + (this.props.index + 1) + " by " + this.props.article.author
+	          'Version ' + (this.props.index + 1) + ' by ' + this.props.article.author
 	        ),
-	        _react2.default.createElement("ul", null)
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'diffy-list' },
+	          diffyListItems
+	        )
 	      );
+	    }
+	
+	    // event handler
+	
+	  }, {
+	    key: 'onRemovedClick',
+	    value: function onRemovedClick(id) {
+	      return function (e) {
+	        var el = document.getElementById(id);
+	        if (el.innerHTML === 'visibility') {
+	          el.innerHTML = 'visibility_off';
+	        } else {
+	          el.innerHTML = 'visibility';
+	        }
+	      };
 	    }
 	  }]);
 	
