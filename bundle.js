@@ -22612,6 +22612,9 @@
 	      nextState.index++;
 	      nextState.history.push(action.history);
 	      return nextState;
+	    case _articleActions.GOTO_INDEX:
+	      nextState.index = action.index;
+	      return nextState;
 	    default:
 	      return nextState;
 	  }
@@ -22701,6 +22704,7 @@
 	var UPDATE_ARTICLE = exports.UPDATE_ARTICLE = 'UPDATE_ARTICLE';
 	var DECREASE_INDEX = exports.DECREASE_INDEX = 'DECREASE_INDEX';
 	var INCREASE_INDEX = exports.INCREASE_INDEX = 'INCREASE_INDEX';
+	var GOTO_INDEX = exports.GOTO_INDEX = 'GOTO_INDEX';
 	var ADD_HISTORY = exports.ADD_HISTORY = 'ADD_HISTORY';
 	
 	var updateBody = exports.updateBody = function updateBody(body) {
@@ -22733,6 +22737,13 @@
 	  return {
 	    type: ADD_HISTORY,
 	    history: history
+	  };
+	};
+	
+	var gotoIndex = exports.gotoIndex = function gotoIndex(index) {
+	  return {
+	    type: GOTO_INDEX,
+	    index: index
 	  };
 	};
 
@@ -29919,18 +29930,25 @@
 	
 	var _Show2 = _interopRequireDefault(_Show);
 	
+	var _articleActions = __webpack_require__(204);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  var article = state.article;
 	  return {
 	    index: article.index,
-	    history: article.history
+	    history: article.history,
+	    article: article.history[article.index]
 	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    gotoIndex: function gotoIndex(index) {
+	      return dispatch((0, _articleActions.gotoIndex)(index));
+	    }
+	  };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Show2.default);
@@ -30042,12 +30060,14 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var historyListItems = this.props.history.map(function (histObj, idx) {
 	        return _react2.default.createElement(
 	          'li',
-	          { key: idx },
+	          { key: idx, className: idx === _this2.props.index ? 'selected' : '', onClick: _this2.onVersionClick(idx) },
 	          _react2.default.createElement(
-	            'h2',
+	            'h1',
 	            null,
 	            'Version ',
 	            idx + 1
@@ -30062,6 +30082,11 @@
 	            'h3',
 	            null,
 	            histObj.matchFrac ? Math.floor(histObj.matchFrac * 100) + '% \u0394' : 'Initial'
+	          ),
+	          _react2.default.createElement(
+	            'a',
+	            { href: '#/editor' },
+	            'edit'
 	          )
 	        );
 	      });
@@ -30098,6 +30123,15 @@
 	    value: function toggleZippy(e) {
 	      var expanded = !this.state.expanded;
 	      this.setState({ expanded: expanded });
+	    }
+	  }, {
+	    key: 'onVersionClick',
+	    value: function onVersionClick(index) {
+	      var _this3 = this;
+	
+	      return function (e) {
+	        return _this3.props.gotoIndex(index);
+	      };
 	    }
 	  }]);
 	
@@ -30146,7 +30180,12 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "diffy-container" },
-	        "I AM DIFFY"
+	        _react2.default.createElement(
+	          "h1",
+	          null,
+	          "Version " + (this.props.index + 1) + " by " + this.props.article.author
+	        ),
+	        _react2.default.createElement("ul", null)
 	      );
 	    }
 	  }]);

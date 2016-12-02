@@ -516,7 +516,9 @@ article a:hover {
 
 .history-list > li {
   width: 80%;
-  background: mediumpurple;
+  background: white;
+  box-shadow: 0 0 3px #aaa;
+  border-bottom: 1px solid #aaa;
   min-height: 100px;
   margin: 5px 0;
   display: flex;
@@ -525,8 +527,36 @@ article a:hover {
   flex-direction: column;
 }
 
-.history-list > li:first-child {
+.history-list > li.selected {
+  background: rgba(0, 153, 204, 0.3);
+  color: black;
+}
 
+.history-list > li:hover {
+  cursor: pointer;
+  box-shadow: 0 0 5px rgb(0, 153, 204);
+}
+
+.history-list h2 {
+  font-size: 12px;
+}
+
+.history-list h3 {
+  font-size: 12px;
+}
+
+.history-list a {
+  font-size: 14px;
+  color: rgb(18, 169, 117);
+}
+
+.history-list a:hover {
+  color: rgb(18, 200, 150);
+  text-decoration: underline;
+}
+
+.history-list > li:first-child {
+  margin-top: 20px;
 }
 
 .zippy {
@@ -536,7 +566,7 @@ article a:hover {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 3px 0 3px -3px #aaa;
+  box-shadow: 3px 0 3px -2px #aaa;
 }
 
 .zippy:hover {
@@ -564,5 +594,5 @@ article a:hover {
 .diffy-container {
   min-width: 600px;
   width: 900px;
-  background: lightgreen;
+  padding: 0 10px;
 }

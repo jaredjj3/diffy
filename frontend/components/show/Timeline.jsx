@@ -16,12 +16,13 @@ export default class extends React.Component {
 
   render () {
     const historyListItems = this.props.history.map((histObj, idx) => (
-      <li key={idx}>
-        <h2>Version {idx + 1}</h2>
+      <li key={idx} className={idx === this.props.index ? 'selected' : ''} onClick={this.onVersionClick(idx)}>
+        <h1>Version {idx + 1}</h1>
         <h2>by {histObj.author}</h2>
         <h3>
           {histObj.matchFrac ? `${Math.floor(histObj.matchFrac * 100)}% Δ` : 'Initial'}
-        </h3> 
+        </h3>
+        <a href="#/editor">edit</a>
       </li>
     ));
     const { expanded } = this.state;
@@ -46,5 +47,9 @@ export default class extends React.Component {
   toggleZippy (e) {
     const expanded = !this.state.expanded;
     this.setState({ expanded });
+  }
+
+  onVersionClick (index) {
+    return e => this.props.gotoIndex(index);
   }
 }

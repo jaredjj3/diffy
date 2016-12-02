@@ -3,7 +3,8 @@ import {
   UPDATE_BODY,
   DECREASE_INDEX,
   INCREASE_INDEX,
-  ADD_HISTORY
+  ADD_HISTORY,
+  GOTO_INDEX
 } from '../actions/articleActions';
 import GitDiffGenerator from '../util/GitDiffGenerator';
 
@@ -30,6 +31,9 @@ export default (state = _defaultState, action) => {
     case ADD_HISTORY:
       nextState.index++;
       nextState.history.push(action.history);    
+      return nextState;
+    case GOTO_INDEX:
+      nextState.index = action.index;
       return nextState;
     default:
       return nextState;
