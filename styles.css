@@ -498,7 +498,7 @@ article a:hover {
 /* TIMELINE */
 
 .timeline-container {
-  background: orchid;
+  background: rgb(243, 243, 243);
   max-width: 400px;
   display: flex;
   justify-content: center;
@@ -522,6 +522,7 @@ article a:hover {
   display: flex;
   justify-content: center;
   align-items: center; 
+  flex-direction: column;
 }
 
 .history-list > li:first-child {
@@ -530,11 +531,16 @@ article a:hover {
 
 .zippy {
   height: 100%;
-  width: 20%;
+  width: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  box-shadow: 3px 0 3px -3px #aaa;
+}
+
+.zippy:hover {
+  background: rgb(232, 232, 232);
 }
 
 .zippy i {

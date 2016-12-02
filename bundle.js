@@ -30042,6 +30042,29 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var historyListItems = this.props.history.map(function (histObj, idx) {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: idx },
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'Version ',
+	            idx + 1
+	          ),
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'by ',
+	            histObj.author
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            histObj.matchFrac ? Math.floor(histObj.matchFrac * 100) + '% \u0394' : 'Initial'
+	          )
+	        );
+	      });
 	      var expanded = this.state.expanded;
 	
 	      return _react2.default.createElement(
@@ -30050,75 +30073,15 @@
 	        _react2.default.createElement(
 	          'ul',
 	          { className: 'history-list ' + (this.state.expanded ? 'hidden' : 'show') },
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            'I\'m  a list item.'
-	          )
+	          historyListItems
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'zippy', className: 'zippy ' + (expanded ? 'expanded' : 'collapsed'), onClick: this.toggleZippy.bind(this) },
+	          {
+	            id: 'zippy',
+	            className: 'zippy ' + (expanded ? 'expanded' : 'collapsed'),
+	            onClick: this.toggleZippy.bind(this)
+	          },
 	          _react2.default.createElement(
 	            'i',
 	            { className: 'material-icons left' },
