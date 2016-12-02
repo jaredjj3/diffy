@@ -5,7 +5,7 @@ export default class extends React.Component {
     super(props);
 
     this.state = {
-      expanded: true
+      expanded: false
     };
   }
   
@@ -20,7 +20,7 @@ export default class extends React.Component {
         <h1>Version {idx + 1}</h1>
         <h2>by {histObj.author}</h2>
         <h3>
-          {histObj.matchFrac ? `${Math.floor(histObj.matchFrac * 100)}% Δ` : 'Initial'}
+          {histObj.matchFrac ? `${Math.floor(histObj.matchFrac * 100)}% difference` : 'Initial'}
         </h3>
         <a href="#/editor">edit</a>
       </li>

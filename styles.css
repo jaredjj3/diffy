@@ -537,6 +537,10 @@ article a:hover {
   box-shadow: 0 0 5px rgb(0, 153, 204);
 }
 
+.history-list h1 {
+  color: rgb(0, 153, 204);
+}
+
 .history-list h2 {
   font-size: 12px;
 }
@@ -656,4 +660,38 @@ article a:hover {
 .shrink .diff-lines {
   color: transparent;
   display: none;
+}
+
+.diffy-container .header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.diffy-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.diffy-controls li {
+  padding-right: 20px;
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+  cursor: pointer;
+}
+
+.diffy-controls li:hover {
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+  color: rgb(18, 200, 150);
 }

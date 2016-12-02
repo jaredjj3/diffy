@@ -19,7 +19,7 @@ export default {
         author: randomAuthor(), 
         body: b.body1, 
         matchFrac: null, 
-        diffs: gitDiff(b.body1, b.body2)
+        diffs: gitDiff(b.body1, b.body1)
       },
       { 
         author: randomAuthor(), 

@@ -22609,7 +22609,7 @@
 	      nextState.index += nextState.index < state.history.length - 1 ? 1 : 0;
 	      return nextState;
 	    case _articleActions.ADD_HISTORY:
-	      nextState.index++;
+	      nextState.index = nextState.history.length;
 	      nextState.history.push(action.history);
 	      return nextState;
 	    case _articleActions.GOTO_INDEX:
@@ -22661,7 +22661,7 @@
 	      author: randomAuthor(),
 	      body: b.body1,
 	      matchFrac: null,
-	      diffs: gitDiff(b.body1, b.body2)
+	      diffs: gitDiff(b.body1, b.body1)
 	    }, {
 	      author: randomAuthor(),
 	      body: b.body2,
@@ -22685,11 +22685,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var body1 = exports.body1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt ligula eget accumsan ultrices. Vestibulum et mi eget augue sodales auctor. Cras sit amet felis commodo, scelerisque leo eu, ornare neque. Donec consectetur tortor metus, pharetra fringilla nisl ultricies eu. Proin volutpat enim sit amet quam malesuada, a hendrerit ante ornare. Nunc lacinia massa eu sapien finibus, et vulputate libero ultricies. Praesent euismod elementum est, eu ornare nibh sollicitudin rutrum.\n\nPraesent molestie lectus non eleifend lobortis. Phasellus tristique libero at arcu faucibus condimentum. Suspendisse ornare nunc at tincidunt vehicula. Suspendisse fermentum ligula placerat est hendrerit, mollis lobortis quam mollis. Aliquam porttitor vitae neque sed mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor massa vel elit ullamcorper dapibus eget sed massa. Donec tempus congue arcu nec tristique. Aliquam erat volutpat. Etiam rutrum mauris vel orci posuere, id eleifend orci dapibus. Vivamus eu massa sed sem facilisis porta et eget ipsum.";
+	var body1 = exports.body1 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll discuss which framework I would use and why. Next, I'll talk about the general schema.";
 	
-	var body2 = exports.body2 = "Donec tincidunt ligula eget accumsan ultrices. Vestibulum et mi eget augue sodales auctor. Cras sit amet felis commodo, scelerisque leo eu, ornare neque. Donec consectetur tortor metus, pharetra fringilla nisl ultricies eu. Proin volutpat enim sit amet quam malesuada, a hendrerit ante ornare. Nunc lacinia massa eu sapien finibus, et vulputate libero ultricies. Praesent euismod elementum est, eu ornare nibh sollicitudin rutrum.\n\nPhasellus tristique libero at arcu faucibus condimentum. Suspendisse ornare nunc at tincidunt vehicula. Suspendisse fermentum ligula placerat est hendrerit, mollis lobortis quam mollis. Aliquam porttitor vitae neque sed mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor massa vel elit ullamcorper dapibus eget sed massa. Donec tempus congue arcu nec tristique. Aliquam erat volutpat. Etiam rutrum mauris vel orci posuere, id eleifend orci dapibus. Vivamus eu massa sed sem facilisis porta et eget ipsum.\n\nQuisque porttitor neque lacus, nec aliquet magna pellentesque non. Etiam eget dui at lacus mattis iaculis. Curabitur non elit non risus euismod pretium et quis urna. Suspendisse tempor interdum gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Nulla vulputate pharetra eros, ut aliquam magna semper vitae. Mauris nec sem facilisis, placerat eros non, rutrum mauris. Integer posuere arcu a ligula sodales pharetra. Sed fringilla quam vitae ligula vestibulum, ac gravida eros tempor. Nulla pellentesque tristique mauris eu molestie. Proin tempor finibus magna nec facilisis.";
+	var body2 = exports.body2 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll discuss what qualities the ideal framework should have. Next, I'll talk about the general schema. Finally, I'll summarize and talk about a few extra considerations.\n\nFirst, let's talk ";
 	
-	var body3 = exports.body3 = "Donec tincidunt ligula eget accumsan ultrices. Vestibulum et mi eget augue sodales auctor. Cras sit amet felis commodo, scelerisque leo eu, ornare neque. Donec consectetur tortor metus, pharetra fringilla nisl ultricies eu. Proin volutpat enim sit amet quam malesuada, a hendrerit ante ornare. Nunc lacinia massa eu sapien finibus, et vulputate libero ultricies. Praesent euismod elementum est, eu ornare nibh sollicitudin rutrum.\n\nPhasellus tristique libero at arcu faucibus condimentum. Suspendisse ornare nunc at tincidunt vehicula. Suspendisse fermentum ligula placerat est hendrerit, mollis lobortis quam mollis. Aliquam porttitor vitae neque sed mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor massa vel elit ullamcorper dapibus eget sed massa. Donec tempus congue arcu nec tristique. Aliquam erat volutpat. Etiam rutrum mauris vel orci posuere, id eleifend orci dapibus. Vivamus eu massa sed sem facilisis porta et eget ipsum.\n\nQuisque porttitor neque lacus, nec aliquet magna pellentesque non. Etiam eget dui at lacus mattis iaculis. Curabitur non elit non risus euismod pretium et quis urna. Suspendisse tempor interdum gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Nulla vulputate pharetra eros, ut aliquam magna semper vitae. Mauris nec sem facilisis, placerat eros non, rutrum mauris. Integer posuere arcu a ligula sodales pharetra. Sed fringilla quam vitae ligula vestibulum, ac gravida eros tempor. Nulla pellentesque tristique mauris eu molestie. Proin tempor finibus magna nec facilisis.\n\nSuspendisse in luctus odio. Nam vulputate venenatis lacus eget rhoncus. Vestibulum convallis diam ut augue tincidunt, et tincidunt libero elementum. Maecenas pharetra enim ac metus feugiat, eget fermentum lectus ornare. Cras porttitor ut sem vitae pellentesque. Donec sed ex velit. Mauris risus dolor, ultrices nec nibh sit amet, dapibus mattis sapien. Phasellus at mattis nisi. Quisque nec est lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec sit amet ex ligula. Sed sed ipsum interdum erat lobortis venenatis. Donec vestibulum risus mattis egestas rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque sed ullamcorper enim. Nunc convallis est tincidunt, vehicula tellus eu, euismod eros.";
+	var body3 = exports.body3 = "Hello, world!\n\nCurrently, there is no backend for this application. I'll use this article as an opportunity to describe it.  Finally, I'll summarize and talk about any extra considerations.\n\nFirst, let's talk ";
 
 /***/ },
 /* 204 */
@@ -29435,7 +29435,7 @@
 	  appName: "Diffy",
 	  companyName: "Authorea",
 	  slogan: "Viewing git diffs doesn't have to be difficult... Join the Diffy-cult!",
-	  projectTime: "~8 hours",
+	  projectTime: "~12 hours",
 	  intro: "I’m an engineer. I thoroughly enjoy taking things apart, learning how they work, and rebuilding them to be better. In the past, I’ve done this with chemical processes. Today, I make user experiences that inspire and change peoples lives. ",
 	  projectDescription: "Diffy is specifically designed for viewing git diffs for plain text documents. "
 	};
@@ -30046,7 +30046,7 @@
 	    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
 	
 	    _this.state = {
-	      expanded: true
+	      expanded: false
 	    };
 	    return _this;
 	  }
@@ -30081,7 +30081,7 @@
 	          _react2.default.createElement(
 	            'h3',
 	            null,
-	            histObj.matchFrac ? Math.floor(histObj.matchFrac * 100) + '% \u0394' : 'Initial'
+	            histObj.matchFrac ? Math.floor(histObj.matchFrac * 100) + '% difference' : 'Initial'
 	          ),
 	          _react2.default.createElement(
 	            'a',
@@ -30159,6 +30159,8 @@
 	
 	var _GitDiffGenerator = __webpack_require__(205);
 	
+	var _reactRouter = __webpack_require__(217);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30197,7 +30199,7 @@
 	        var id = 'vis-' + idx;
 	        return _react2.default.createElement(
 	          'li',
-	          { id: 'diff-indicator-' + idx, className: 'li-' + klass, key: idx, onClick: _this2.onRemovedClick(idx) },
+	          { id: 'diff-indicator-' + idx, className: 'li-' + klass, key: idx, onClick: diff.type === _GitDiffGenerator.REMOVED ? _this2.onRemovedClick(idx) : function () {} },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'diff-indicator ' + klass },
@@ -30218,9 +30220,48 @@
 	        'div',
 	        { className: 'diffy-container' },
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Version ' + (this.props.index + 1) + ' by ' + this.props.article.author
+	          'div',
+	          { className: 'header' },
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'diffy-controls' },
+	            _react2.default.createElement(
+	              'li',
+	              { onClick: this.collapseAll.bind(this) },
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                'vertical_align_top'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              { onClick: this.expandAll.bind(this) },
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                'vertical_align_bottom'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: 'editor' },
+	                _react2.default.createElement(
+	                  'i',
+	                  { className: 'material-icons' },
+	                  'mode_edit'
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Version ' + (this.props.index + 1) + ' by ' + this.props.article.author
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'ul',
@@ -30230,8 +30271,38 @@
 	      );
 	    }
 	
-	    // event handler
+	    // event handlers
 	
+	  }, {
+	    key: 'collapseAll',
+	    value: function collapseAll(e) {
+	      for (var i = 0; i < this.props.article.diffs.length; i++) {
+	        var diff = this.props.article.diffs[i];
+	        if (diff.type === _GitDiffGenerator.REMOVED) {
+	          var iconEl = document.getElementById('vis-' + i);
+	          var liEl = document.getElementById('diff-indicator-' + i);
+	          if (iconEl.innerHTML === 'visibility') {
+	            iconEl.innerHTML = 'visibility_off';
+	            liEl.className += ' shrink';
+	          }
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'expandAll',
+	    value: function expandAll(e) {
+	      for (var i = 0; i < this.props.article.diffs.length; i++) {
+	        var diff = this.props.article.diffs[i];
+	        if (diff.type === _GitDiffGenerator.REMOVED) {
+	          var iconEl = document.getElementById('vis-' + i);
+	          var liEl = document.getElementById('diff-indicator-' + i);
+	          if (iconEl.innerHTML === 'visibility_off') {
+	            iconEl.innerHTML = 'visibility';
+	            liEl.className = liEl.className.replace(' shrink', '');
+	          }
+	        }
+	      }
+	    }
 	  }, {
 	    key: 'onRemovedClick',
 	    value: function onRemovedClick(idx) {
