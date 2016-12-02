@@ -23,4 +23,5 @@ The schema should at least have authors and articles tables. The authors model w
 A major consideration for backend design should be the framework selection. There should be adequate support for images and BLOBs (Binary Large Objects), as figures are an essential element of research papers.
 
 Until then, have a good day!
+
 Jared`;
