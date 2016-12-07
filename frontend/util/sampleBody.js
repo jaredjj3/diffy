@@ -14,7 +14,7 @@ Currently, there is no backend for this application. I'll use this article as an
 
 The schema should at least have authors and articles tables. The authors model would be responsible for handling authentication and preventing unauthorized access to certain routes. The articles model will have more logic concerning the format of each article, but there will be extra authentication to increase security.`;
 
-export const body4 = `Hello, Authorea!
+export const body4 = `Hello, world!
 
 Currently, there is no backend for this application. I'll use this article as an opportunity to describe it. First, I'll talk about the general schema and backend setup. Then, I'll talk about a few extra considerations.
 
