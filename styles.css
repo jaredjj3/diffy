@@ -152,6 +152,8 @@ nav {
 .logo-container {
   height: 40px;
   display: flex;
+  font-family: 'Slabo 27px', serif;
+  font-size: 36px;
   align-content: center;
   justify-content: center;
   flex-direction: column;
@@ -699,3 +701,4 @@ article a:hover {
   transition: all .1s ease-in;
   color: rgb(18, 200, 150);
 }
+
